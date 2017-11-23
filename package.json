@@ -2,12 +2,16 @@
   "name": "vueh5plus",
   "description": "H5Plus Extend for Vue.js",
   "version": "1.0.0",
-  "author": "232003894 <232003894@qq.com>",
+  "author": "cwb",
   "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/232003894/vueh5plus.git"
   },
   "keywords": [
     "H5Plus",

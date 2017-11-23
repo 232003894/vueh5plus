@@ -58,7 +58,7 @@ module.exports = {
 
 
 var package = require('./package.json');
-var banner = ` ${package.name} v${package.version}\n ${package.description}\n author: ${package.author}\n repository: https://github.com/232003894\n @license MIT`
+var banner = ` ${package.name} v${package.version}\n ${package.description}\n author: ${package.author}\n repository: ${package.repository.url}\n @license MIT`
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.entry = './src/lib/index.js'
