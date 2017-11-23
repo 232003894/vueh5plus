@@ -1,8 +1,4 @@
 const ua = navigator.userAgent
-const _webviews = new WeakMap()
-const key = { foo: 1 }
-_webviews.set(key, 2)
-
 let os = {
   name: 'web',
   wechat: false,
