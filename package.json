@@ -7,7 +7,7 @@
   "private": false,
   "main": "vue-h5plus.min.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --host 192.168.2.124 --port 8081 --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "files": [
@@ -23,7 +23,9 @@
     "vue"
   ],
   "dependencies": {
-    "vue": "^2.4.4"
+    "vue": "^2.4.4",
+    "accounting": "^0.4.1",
+    "qs": "^6.5.1"
   },
   "browserslist": [
     "> 1%",

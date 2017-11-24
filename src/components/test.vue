@@ -6,28 +6,28 @@
 
 <script>
 export default {
-  name: 'test',
-  data () {
+  name: "test",
+  data() {
     return {
-      msg: 'test组件'
-    }
+      msg: "test组件"
+    };
   },
-  mounted: function () {
-    console.log('test组件  mounted')
+  onload: function() {
+    console.log("test组件 Dom加载完成");
   },
-  onload: function () {
-    console.log('test组件 Dom加载完成')
+  plusready: function() {
+    console.log("test组件 设备加载完成");
   },
-  plusready: function () {
-    console.log('test组件 设备加载完成')
+  mounted: function() {
+    console.log("test组件  mounted");
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h1,
-  h2 {
-    font-weight: normal;
-  }
+h1,
+h2 {
+  font-weight: normal;
+}
 </style>
