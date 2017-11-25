@@ -108,6 +108,27 @@ export function isPlainObject(obj) {
 }
 
 /**
+ * 验证URL
+ * @param {String} str_url 
+ */
+export function isURL(str_url) {
+  // 验证url  
+  // var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
+  var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
+    + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" // ftp的user@  
+    + "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184  
+    + "|" // 允许IP和DOMAIN（域名）  
+    + "([0-9a-z_!~*'()-]+\.)*" // 域名- www.  
+    + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名  
+    + "[a-z]{2,6})" // first level domain- .com or .museum  
+    + "(:[0-9]{1,4})?" // 端口- :80  
+    + "((/?)|" // a slash isn't required if there is no file name  
+    + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+  var re = new RegExp(strRegex);
+  return re.test(str_url);
+}
+
+/**
  * 用于合并多个对象或深克隆,类似于jQuery.extend；
  * 数组也可以合并,这里数组可以理解为以索引为属性的对象；
  * mix( target, [object1, objectN ] )；
@@ -303,3 +324,77 @@ export function toFixed(value, precision = 0) {
  * @returns {String} 数字字符串
  */
 export var toFixedStr = accounting.toFixed
+
+/**
+ * 计算颜色值的反色，colorStr格式为：rgb(0,0,0),#000000或者#f00
+ * @param {String} colorStr colorStr格式为：rgb(0,0,0),#000000或者#f00
+ */
+export function reversalColor(colorStr) {
+  var sixNumReg = /^#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})*$/gi;
+  var threeNumReg = /^#([a-fA-F0-9]{1})([a-fA-F0-9]{1})([a-fA-F0-9]{1})$/gi;
+  var rgbReg = /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/gi;
+  var c1 = 0,
+    c2 = 0,
+    c3 = 0;
+  var parseHexToInt = function (hex) {
+    return parseInt(hex, 16);
+  };
+  var parseIntToHex = function (int) {
+    return int.toString(16);
+  };
+  if (sixNumReg.test(colorStr)) {
+    sixNumReg.exec(colorStr);
+    c1 = parseHexToInt(RegExp.$1);
+    c2 = parseHexToInt(RegExp.$2);
+    c3 = parseHexToInt(RegExp.$3);
+  } else if (threeNumReg.test(colorStr)) {
+    threeNumReg.exec(colorStr);
+    c1 = parseHexToInt(RegExp.$1 + RegExp.$1);
+    c2 = parseHexToInt(RegExp.$2 + RegExp.$2);
+    c3 = parseHexToInt(RegExp.$3 + RegExp.$3);
+  } else if (rgbReg.test(colorStr)) {
+    //rgb color 直接就是十进制，不用转换
+    rgbReg.exec(colorStr);
+    c1 = RegExp.$1;
+    c2 = RegExp.$2;
+    c3 = RegExp.$3;
+  } else {
+    throw new Error(
+      "Error color string format. eg.[rgb(0,0,0),#000000,#f00]"
+    );
+  }
+  c1 = parseIntToHex(255 - c1);
+  c2 = parseIntToHex(255 - c2);
+  c3 = parseIntToHex(255 - c3);
+  return (
+    "#" +
+    (c1 < 10 ? "0" + c1 : c1) +
+    (c2 < 10 ? "0" + c2 : c2) +
+    (c3 < 10 ? "0" + c3 : c3)
+  );
+}
+
+/**
+ * 获取随机颜色
+ * @param {Boolean} useRgb 
+ */
+export function randomColor(useRgb = true) {
+  let _color = ''
+  if (!useRgb) {
+    _color =
+      "#" +
+      Math.floor(Math.random() * 256).toString(16).padEnd(2, '0') +
+      Math.floor(Math.random() * 256).toString(16).padEnd(2, '0') +
+      Math.floor(Math.random() * 256).toString(16).padEnd(2, '0');
+  } else {
+    _color =
+      "rgb(" +
+      Math.floor(Math.random() * 256) +
+      "," +
+      Math.floor(Math.random() * 256) +
+      "," +
+      Math.floor(Math.random() * 256) +
+      ")";
+  }
+  return _color
+}
