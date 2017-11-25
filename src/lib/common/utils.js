@@ -381,11 +381,19 @@ export function reversalColor(colorStr) {
 export function randomColor(useRgb = true) {
   let _color = ''
   if (!useRgb) {
-    _color =
-      "#" +
-      Math.floor(Math.random() * 0xff).toString(16) +
-      Math.floor(Math.random() * 0xff).toString(16) +
-      Math.floor(Math.random() * 0xff).toString(16);
+    let c1 = Math.floor(Math.random() * 0xff).toString(16)
+    let c2 = Math.floor(Math.random() * 0xff).toString(16)
+    let c3 = Math.floor(Math.random() * 0xff).toString(16)
+    if (c1.length < 2) {
+      c1 = c1 + "0"
+    }
+    if (c2.length < 2) {
+      c2 = c2 + "0"
+    }
+    if (c3.length < 2) {
+      c3 = c3 + "0"
+    }
+    _color = "#" + c1 + c2 + c3;
   } else {
     _color =
       "rgb(" +
