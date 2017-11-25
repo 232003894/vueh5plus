@@ -383,9 +383,9 @@ export function randomColor(useRgb = true) {
   if (!useRgb) {
     _color =
       "#" +
-      Math.floor(Math.random() * 256).toString(16).padEnd(2, '0') +
-      Math.floor(Math.random() * 256).toString(16).padEnd(2, '0') +
-      Math.floor(Math.random() * 256).toString(16).padEnd(2, '0');
+      Math.floor(Math.random() * 0xff).toString(16) +
+      Math.floor(Math.random() * 0xff).toString(16) +
+      Math.floor(Math.random() * 0xff).toString(16);
   } else {
     _color =
       "rgb(" +
