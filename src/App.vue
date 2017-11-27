@@ -16,8 +16,16 @@
       <button  v-if="!ishome" @click="hideMe">隐藏自己</button>
     </p>
     <p>
-      提示消息：<br>
-      <button @click="toastBasic">Toast基础</button>
+      提示消息-仅文字：<br>
+      <button @click="toastTop">上-默认换行</button>
+      <button @click="toastCenter">中-换行13</button>
+      <button @click="toastBottom">底-换行40</button>
+    </p>
+    <p>
+      提示消息-带图标：<br>
+      <button @click="toastOK">成 功</button>
+      <button @click="toastError">失 败</button>
+      <button @click="toastWarn"> 警 告</button>
     </p>
   </div>
 </template>
@@ -36,13 +44,6 @@ export default {
       bgcolor: ""
     };
   },
-  mounted: function() {
-    let bgcolor = this.plus.randomColor(false);
-    this.bgcolor = bgcolor;
-    document.body.style.backgroundColor = bgcolor;
-    this.color = this.plus.reversalColor(bgcolor);
-    console.log("APP主页  mounted");
-  },
   listens: {
     event1: function(e) {
       alert(JSON.stringify(e.detail));
@@ -53,27 +54,79 @@ export default {
   },
   plusready: function() {
     console.log("APP主页 设备加载完成");
-    // this.plus.send("event1", "plusready", { self: false });
-    this.id = this.plus.getWin().id;
+    let view = this.plus.getWin();
+    this.id = view.id;
     this.ishome = this.plus.isHome();
+    this.statusBar(this.bgcolor);
+    let self = this;
+    view.addEventListener(
+      "show",
+      function(e) {
+        self.statusBar(self.bgcolor);
+      },
+      false
+    );
+  },
+  created() {
+    let bgcolor = this.plus.randomColor();
+    this.bgcolor = bgcolor;
+    document.body.style.backgroundColor = bgcolor;
+    this.color = this.plus.reversalColor(bgcolor);
+  },
+  mounted: function() {
+    console.log("APP主页  mounted");
   },
   methods: {
     // #region 广播消息
     send: function() {
       this.plus.send("event1", { a: 1 }, { self: true });
     },
+    statusBar(colorStr) {
+      this.plus.setStatusBarBackground(colorStr);
+    },
+    onVisibilityChange() {
+      // alert("onVisibilityChange");
+      this.statusBar(this.bgcolor);
+    },
     // #endregion
     // #region 窗体控制
     openAbc: function() {
-      this.plus.open("http://192.168.2.124:8081/", "abc", { abc: 121 });
+      let self = this;
+      let v = this.plus.open(
+        "http://192.168.2.124:8081/",
+        "abc",
+        { abc: 121 },
+        {},
+        this.bgcolor
+      );
+      v.addEventListener(
+        "close",
+        function(e) {
+          self.statusBar(self.bgcolor);
+        },
+        false
+      );
+      v.addEventListener(
+        "hide",
+        function(e) {
+          self.statusBar(self.bgcolor);
+        },
+        false
+      );
     },
     hideAbc: function() {
       this.plus.hide("abc");
     },
     openRandom: function() {
-      this.plus.open("http://192.168.2.124:8081/", new Date().valueOf(), {
-        abc: 121
-      });
+      this.plus.open(
+        "http://192.168.2.124:8081/",
+        new Date().valueOf(),
+        {
+          abc: 121
+        },
+        {},
+        this.bgcolor
+      );
     },
     closeMe: function() {
       this.plus.close();
@@ -86,8 +139,59 @@ export default {
     },
     // #endregion
     // #region 提示消息
-    toastBasic: function() {
-      this.plus.toast("kl;k;");
+    toastTop: function() {
+      this.plus.toast(
+        "创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。 提示消息显示时间可通过options的duration属性控制，长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。",
+        {
+          position: "top",
+          duration: "short",
+          lineLength: 0
+        }
+      );
+    },
+    toastCenter: function() {
+      this.plus.toast(
+        "创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。 提示消息显示时间可通过options的duration属性控制，长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。",
+        {
+          position: "center",
+          duration: "short",
+          lineLength: 13
+        }
+      );
+    },
+    toastBottom: function() {
+      this.plus.toast(
+        "创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。 提示消息显示时间可通过options的duration属性控制，长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。",
+        {
+          position: "bottom",
+          duration: "short",
+          lineLength: 40
+        }
+      );
+    },
+    toastOK: function() {
+      this.plus.toast("提案成功", {
+        position: "center",
+        duration: "short",
+        icon: "/ui/ok.png",
+        lineLength: 13
+      });
+    },
+    toastError: function() {
+      this.plus.toast("提案失败", {
+        position: "center",
+        duration: "short",
+        icon: "/ui/error.png",
+        lineLength: 13
+      });
+    },
+    toastWarn: function() {
+      this.plus.toast("提案警告", {
+        position: "center",
+        duration: "short",
+        icon: "/ui/warn.png",
+        lineLength: 13
+      });
     }
     // #endregion
   }

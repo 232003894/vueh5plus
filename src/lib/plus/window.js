@@ -123,6 +123,8 @@ export function show(w, showOpt = {}) {
       // 窗口不可见（从没调用过show或hide了）
       ui.showWaiting()
       setTimeout(() => {
+        // 设置系统状态栏背景颜色
+        // setStatusBarBackground(statusBarColor)
         w.show(_Opt.aniShow, _Opt.duration, function () {
           // showedCB()
           ui.closeWaiting()
@@ -143,6 +145,8 @@ export function show(w, showOpt = {}) {
             aniHide: 'none'
           })
           setTimeout(() => {
+            // 设置系统状态栏背景颜色
+            // setStatusBarBackground(statusBarColor)
             w.show(_Opt.aniShow, _Opt.duration, function () {
               // showedCB()
               ui.closeWaiting()
@@ -163,6 +167,8 @@ export function show(w, showOpt = {}) {
           setTimeout(() => {
             // showedCB()
             ui.closeWaiting()
+            // 设置系统状态栏背景颜色
+            // setStatusBarBackground(statusBarColor)
           }, defaultHide.duration)
         }
       }
@@ -251,6 +257,7 @@ export function open(url = '', id = '', extras = {}, styles = {}) {
       view = creat(url, id, extras, styles)
     }
     show(view)
+    return view
   } else if (!os.plus) {
     // web，非web
     let _opt = getUrl(url, extras, id)
@@ -268,6 +275,24 @@ export function open(url = '', id = '', extras = {}, styles = {}) {
     return view
   }
 }
+
+/**
+ * 设置系统状态栏背景颜色
+ * @param {String} color 背景颜色值，颜色值格式为"#RRGGBB"，如"#FF0000"为红色，默认颜色由系统状态栏样式决定。
+ */
+export function setStatusBarBackground(color) {
+  var sixNumReg = /^#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})*$/gi;
+  if (window.plus) {
+    if (!sixNumReg.test(color)) {
+      color = plus.navigator.getStatusBarBackground();
+    }
+    if (color) {
+      plus.navigator.setStatusBarBackground(color);
+    }
+  }
+}
+
+var sixNumReg = /^#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})*$/gi;
 
 /**
  * 用浏览器打开url
@@ -342,4 +367,20 @@ export function isHome(w) {
   }
 }
 
+/**
+ * 是否顶层窗口
+ * @param {String|window|WebviewObject} w 
+ */
+export function isTop(w) {
+  w = getWin(w)
+  if (!w) {
+    return false
+  }
+  if (window.plus) {
+    let topView = plus.webview.getTopWebview()
+    let _wIsTop = topView.id === w.id
+  } else {
+    return !(w.document.hidden || w.document.webkitHidden)
+  }
+}
 // #endregion

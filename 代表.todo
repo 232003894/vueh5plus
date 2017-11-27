@@ -1,7 +1,12 @@
-☐ nativeUI
-  ☐ toast
-    ☐ 基础参数
-    ☐ 图标模式
-    ☐ 富文本模式的
+✔ nativeUI @done(17-11-27 15:07)
+  ✔ toast 参数:文字，垂直位置，时间，图标，是否自动断行 @done(17-11-27 15:07)
+☐ window
+  ☐ 控制Webview注入5+ API时机 plus.webview.WebviewStyles 的 plusrequire
+  ☐ 弹出系统软键盘模式 plus.webview.WebviewStyles 的 softinputMode
+☐ 全屏、状态栏
+  ✔ window:setStatusBarBackground @done(17-11-27 17:12)
+☐ back
+  ☐ 首页关闭
+☐ menu
 Bug
-☐ randomColor 方法有bug
+✔ randomColor 方法有bug @done(17-11-27 09:17)

@@ -22,7 +22,16 @@ const WaitingOptions = {
     height: '30px'
   }
 }
-
+const toastOption = {
+  // 提示消息在屏幕中的垂直位置：可选值为"top"、"center"、"bottom"，分别为垂直居顶、居中、居底，未设置时默认值为"bottom"
+  position: 'bottom',
+  // 提示消息框显示的时间：可选值为"long"、"short"，值为"long"时显示时间约为3.5s，值为"short"时显示时间约为2s，未设置时默认值为"short"。
+  duration: 'short',
+  // 提示消息框上显示的图标：png格式，并且必须是本地资源地址；图标与文字分两行显示，上面显示图标，下面显示文字；
+  icon: '',
+  // 提示 
+  lineLength: 0
+}
 // #endregion
 
 /**
@@ -35,8 +44,10 @@ export function showWaiting(title = '') {
   }
   if (window.plus) {
     plus.nativeUI.showWaiting(title, WaitingOptions);
+    return true
   } else {
     console.log('[' + os.name + ']不支持nativeUI的showWaiting方法!')
+    return false
   }
 }
 
@@ -46,24 +57,40 @@ export function showWaiting(title = '') {
 export function closeWaiting() {
   if (window.plus) {
     plus.nativeUI.closeWaiting();
+    return true
   } else {
     console.log('[' + os.name + ']不支持nativeUI的closeWaiting方法!')
+    return false
   }
 }
 
 /**
  * 显示自动消失的提示消息
- * @param {String} message 
- * @param {Object} options 
+ * @param {String} msg 提示消息上显示的文字内容
+ * @param {Object} opts  提示消息的参数，可设置提示消息显示的图标、持续时间、位置、自动换行等。
  */
-export function toast(message = '', options = {}) {
-  if (!message) {
-    message = '提示'
+export function toast(msg = '', opts = {}) {
+  if (!msg || !utils.isString(msg)) {
+    return
   }
-  options = utils.mix({}, options)
+  opts = utils.mix({}, toastOption, opts)
+  msg = utils.strBreak(msg, opts.lineLength)
+  if (opts.position !== 'bottom' && opts.position !== 'top' && opts.position !== 'center') {
+    opts.position = 'bottom'
+  }
+  opts.verticalAlign = opts.position
+  if (opts.duration !== 'long' && opts.duration !== 'short') {
+    opts.duration = 'short'
+  }
+  if (!utils.isString(opts.icon)) {
+    opts.icon = ''
+  }
   if (window.plus) {
-    plus.nativeUI.toast(message, options)
+    plus.nativeUI.toast(msg, opts)
+    return true
   } else {
     console.log('[' + os.name + ']不支持nativeUI的toast方法!')
+    console.log('[toast]\n' + msg)
+    return false
   }
 }

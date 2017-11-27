@@ -326,6 +326,38 @@ export function toFixed(value, precision = 0) {
 export var toFixedStr = accounting.toFixed
 
 /**
+ * 文本自动换行
+ * @param {String} txt 文本
+ * @param {Number} lineLength 换行长度
+ * @param {String} lineBreak 换行符
+ */
+export function strBreak(txt = "", lineLength = 10, lineBreak = "\r\n") {
+  if (!txt) {
+    return ''
+  }
+  lineLength = toFixed(lineLength)
+  if (lineLength <= 0) {
+    return txt
+  }
+  // http://www.makaidong.com/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E7%9F%A5%E8%AF%86%E5%BA%93/18649.shtml
+  if (txt.replace(/[^\x00-\xff]/g, "xx").length <= lineLength) {
+    return txt;
+  }
+  var str = "";
+  var l = 0;
+  var schar;
+  for (var i = 0; (schar = txt.charAt(i)); i++) {
+    str += schar;
+    l += schar.match(/[^\x00-\xff]/) != null ? 2 : 1;
+    if (l >= lineLength) {
+      str += lineBreak;
+      l = 0;
+    }
+  }
+  return str;
+}
+
+/**
  * 计算颜色值的反色，colorStr格式为：rgb(0,0,0),#000000或者#f00
  * @param {String} colorStr colorStr格式为：rgb(0,0,0),#000000或者#f00
  */
@@ -378,22 +410,11 @@ export function reversalColor(colorStr) {
  * 获取随机颜色
  * @param {Boolean} useRgb 
  */
-export function randomColor(useRgb = true) {
+export function randomColor(useRgb = false) {
   let _color = ''
   if (!useRgb) {
-    let c1 = Math.floor(Math.random() * 0xff).toString(16)
-    let c2 = Math.floor(Math.random() * 0xff).toString(16)
-    let c3 = Math.floor(Math.random() * 0xff).toString(16)
-    if (c1.length < 2) {
-      c1 = c1 + "0"
-    }
-    if (c2.length < 2) {
-      c2 = c2 + "0"
-    }
-    if (c3.length < 2) {
-      c3 = c3 + "0"
-    }
-    _color = "#" + c1 + c2 + c3;
+    // http://blog.csdn.net/inite/article/details/52554142
+    _color = '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
   } else {
     _color =
       "rgb(" +
