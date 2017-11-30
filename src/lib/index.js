@@ -1,8 +1,14 @@
 import * as _plus from './plus'
 import qs from 'qs'
 
-var vue // lazy绑定
-const listen_names = new WeakMap()
+// lazy绑定
+var vue
+// listen的集合
+const _listens = new WeakMap()
+
+/**
+ * h5+插件扩展
+ */
 const plusExtend = {
   created: function () {
     if (!vue) {
@@ -18,54 +24,37 @@ const plusExtend = {
      */
     init: function () {
       var self = this
-
       /**
        * 扩展的组件选项
        */
-      let plusready = this.$options.plusready
-      let ready = this.$options.onload
-      let listens = this.$options.listens
+      let plusready = this.$options.load && this.$options.load.plus
+      let ready = this.$options.load && this.$options.load.dom
+      let listener = this.$options.listener
+      let back = this.$options.back
 
       /**
        * Dom加载完成
        */
-      if (ready) {
-        // debugger
-        onload.call(self, ready)
+      if (ready && _plus.isFunction(ready)) {
+        onload(ready, self)
       }
-
       /**
        * 设备的加载完成
        */
-      if (plusready) {
-        if (window.plus) {
-          // 解决callback与plusready事件的执行时机问题(典型案例:showWaiting,closeWaiting)
-          setTimeout(() => {
-            plusready.call(self)
-          }, 16.7)
-        } else {
-          // 修复：手机app中会调用2次的bug，window.plus改为os.plus
-          if (_plus.os.plus) {
-            document.addEventListener('plusready', function () {
-              plusready.call(self)
-            }, false)
-          } else {
-            onload.call(self, plusready)
-          }
-        }
+      if (plusready && _plus.isFunction(plusready)) {
+        onplusload(plusready, self)
       }
-
       /**
        * 事件监听
        */
-      if (listens) {
-        let _ls = Object.keys(listens)
+      if (listener) {
+        let _ls = Object.keys(listener)
         for (let index = 0; index < _ls.length; index++) {
           const _l = _ls[index]
-          const _lf = listens[_l]
-          if (typeof (_lf) === "function") {
-            if (!listen_names.get(_lf)) {
-              listen_names.set(_lf, true)
+          const _lf = listener[_l]
+          if (_plus.isFunction(_lf)) {
+            if (!_listens.get(_lf)) {
+              _listens.set(_lf, true)
               if (_plus.os.plus) {
                 // 设备
                 document.addEventListener(_l, function (e) {
@@ -83,7 +72,6 @@ const plusExtend = {
           }
         }
       }
-
     }
   }
 }
@@ -92,25 +80,86 @@ const plusExtend = {
  * Dom加载完成
  * @param {Function} callback 
  */
-function onload(callback) {
+function onload(callback, vm = null) {
   let readyRE = /complete|loaded|interactive/
   if (readyRE.test(document.readyState)) {
-    callback()
+    if (vm) {
+      callback.call(vm)
+    } else {
+      callback()
+    }
   } else {
-    var self = this
     document.addEventListener('DOMContentLoaded', function () {
-      callback.call(self)
+      if (vm) {
+        callback.call(vm)
+      } else {
+        callback()
+      }
     }, false)
   }
   return this
 }
 
 /**
+ * 设备的加载完成
+ * @param {Function} callback 
+ */
+function onplusload(callback, vm = null) {
+  if (window.plus) {
+    // 解决callback与plusready事件的执行时机问题(典型案例:showWaiting,closeWaiting)
+    setTimeout(() => {
+      if (vm) {
+        callback.call(vm)
+      } else {
+        callback()
+      }
+
+    }, 16.7)
+  } else {
+    // 修复：手机app中会调用2次的bug，window.plus改为os.plus
+    if (_plus.os.plus) {
+      document.addEventListener('plusready', function () {
+        if (vm) {
+          callback.call(vm)
+        } else {
+          callback()
+        }
+      }, false)
+    } else {
+      if (vm) {
+        onload(callback, vm)
+      } else {
+        onload(callback)
+      }
+    }
+  }
+}
+
+
+
+/**
  * 非设备环境模拟H5+
  * 1.模拟window的id和参数
  * 2.构建全部窗体列表为模拟通知使用
  */
-function simulatePlus() {
+(function () {
+  onplusload(function () {
+    window.plus && window.plus.key.addEventListener('backbutton', _plus.back, false)
+    if (_plus.os.plus) {
+      // 设备
+      document.addEventListener('__backbutton', function (e) {
+        _plus.back()
+      })
+    } else {
+      // 非设备:基本上是给调试用的
+      window.addEventListener('message', function (e) {
+        if (e.data && e.data.name === '__backbutton') {
+          _plus.back()
+        }
+      }, false)
+    }
+
+  })
   if (!_plus.os.plus) {
     window.id = 'index'
     let tmp = window.location.href.split('?')
@@ -142,8 +191,7 @@ function simulatePlus() {
       }
     }
   }
-}
-simulatePlus()
+})()
 
 /**
  * 安装插件

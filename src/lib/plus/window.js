@@ -59,7 +59,9 @@ function getUrl(url, extras, id) {
 // 默认打开窗口样式配置
 const defaultWin = {
   scalable: false,
-  bounce: ''
+  bounce: '',
+  plusrequire: "ahead",
+  softinputMode: "adjustPan"
 }
 // 默认窗口显示配置
 const defaultShow = {
@@ -71,7 +73,6 @@ const defaultHide = {
   duration: os.ios ? 600 : 450,
   aniHide: 'slide-out-right'
 }
-
 // #endregion
 
 // #region 公共方法
@@ -124,7 +125,6 @@ export function show(w, showOpt = {}) {
       ui.showWaiting()
       setTimeout(() => {
         // 设置系统状态栏背景颜色
-        // setStatusBarBackground(statusBarColor)
         w.show(_Opt.aniShow, _Opt.duration, function () {
           // showedCB()
           ui.closeWaiting()
@@ -146,7 +146,6 @@ export function show(w, showOpt = {}) {
           })
           setTimeout(() => {
             // 设置系统状态栏背景颜色
-            // setStatusBarBackground(statusBarColor)
             w.show(_Opt.aniShow, _Opt.duration, function () {
               // showedCB()
               ui.closeWaiting()
@@ -168,7 +167,6 @@ export function show(w, showOpt = {}) {
             // showedCB()
             ui.closeWaiting()
             // 设置系统状态栏背景颜色
-            // setStatusBarBackground(statusBarColor)
           }, defaultHide.duration)
         }
       }
@@ -220,10 +218,13 @@ export function close(w, closeOpts = {}) {
     return
   }
   if (window.plus) {
-    // home窗口
-    if (isHome(w)) {
-      // todo:首页关闭
-    }
+    let _cs = w.children(),
+      fn = () => {
+        for (var c of _cs) {
+          close(c)
+        }
+      }
+    w.addEventListener('onclose', fn)
     let _Opt = utils.mix({}, defaultHide, closeOpts)
     let isTop = plus.webview.getTopWebview().id === w.id
     if (!isTop) {
@@ -275,24 +276,6 @@ export function open(url = '', id = '', extras = {}, styles = {}) {
     return view
   }
 }
-
-/**
- * 设置系统状态栏背景颜色
- * @param {String} color 背景颜色值，颜色值格式为"#RRGGBB"，如"#FF0000"为红色，默认颜色由系统状态栏样式决定。
- */
-export function setStatusBarBackground(color) {
-  var sixNumReg = /^#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})*$/gi;
-  if (window.plus) {
-    if (!sixNumReg.test(color)) {
-      color = plus.navigator.getStatusBarBackground();
-    }
-    if (color) {
-      plus.navigator.setStatusBarBackground(color);
-    }
-  }
-}
-
-var sixNumReg = /^#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})*$/gi;
 
 /**
  * 用浏览器打开url
@@ -384,3 +367,6 @@ export function isTop(w) {
   }
 }
 // #endregion
+
+
+

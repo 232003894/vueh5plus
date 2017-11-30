@@ -23,7 +23,7 @@ export function send(name, data, { self = false, ids = [] } = {}) {
             if (v.id == _indexID && !self) {
                 continue
             }
-            console.log('send')
+            // console.log('send')
             v.evalJS(`document.dispatchEvent(new CustomEvent('${name}', {
                 detail:JSON.parse('${JSON.stringify(data)}'),
                 bubbles: true,
@@ -50,7 +50,7 @@ export function send(name, data, { self = false, ids = [] } = {}) {
             if (v.id == _indexID && !self) {
                 continue
             }
-            console.log('send')
+            // console.log('send')
             v.postMessage({
                 name: name,
                 data: data

@@ -1,7 +1,11 @@
 <template>
   <div id="app" :style="{color:color}">
-    <test></test>
-    <h4>页面ID：{{id}}</h4>
+    <div :style="{position:'fixed',top:0,height:'30px',width:'100%',background:color,color:bgcolor,'line-height':'30px'}">
+      头部
+    </div>
+    <test>
+      <h2>页面ID：{{id}}</h2>
+    </test>
     <p>
       广播：<br>
       <button @click="send" >send</button>
@@ -16,10 +20,10 @@
       <button  v-if="!ishome" @click="hideMe">隐藏自己</button>
     </p>
     <p>
-      提示消息-仅文字：<br>
-      <button @click="toastTop">上-默认换行</button>
-      <button @click="toastCenter">中-换行13</button>
-      <button @click="toastBottom">底-换行40</button>
+      提示消息-仅文字+换行：<br>
+      <button @click="toastTop">上-默认</button>
+      <button @click="toastCenter">中-13</button>
+      <button @click="toastBottom">底-40</button>
     </p>
     <p>
       提示消息-带图标：<br>
@@ -33,6 +37,57 @@
 <script>
 import test from "./components/test";
 export default {
+  listener: {
+    event1(e) {
+      alert("app:" + JSON.stringify(e.detail));
+    }
+  },
+  load: {
+    dom() {
+      console.log("APP主页  Dom加载完成");
+    },
+    plus() {
+      let self = this;
+      console.log("APP主页 设备加载完成");
+      this.ishome = this.plus.isHome();
+      let view = this.plus.getWin();
+      this.id = view.id;
+      view.bgcolor = self.bgcolor;
+      if (this.ishome) {
+        this.statusBar(self.bgcolor);
+      } else {
+        view.addEventListener("show", function(e) {
+          self.statusBar(plus.webview.getTopWebview().bgcolor);
+        });
+      }
+
+      setTimeout(() => {
+        let handle1 = {
+          index: 100,
+          act() {
+            console.log(self.$options.name + " back  handle1");
+          }
+        };
+        let handle2 = {
+          index: 100,
+          act() {
+            console.log(self.$options.name + " back  handle2");
+          }
+        };
+        let handle3 = {
+          index: 9,
+          act() {
+            console.log(self.$options.name + " back  handle3");
+          }
+        };
+        self.plus.addBack(handle1);
+        self.plus.addBack(handle2);
+        self.plus.addBack(handle3);
+        self.plus.removeBack(handle3);
+        // console.log(self.plus.acts(self));
+      }, 17);
+    }
+  },
   name: "app",
   components: { test },
   data() {
@@ -44,34 +99,10 @@ export default {
       bgcolor: ""
     };
   },
-  listens: {
-    event1: function(e) {
-      alert(JSON.stringify(e.detail));
-    }
-  },
-  onload: function() {
-    console.log("APP主页  Dom加载完成");
-  },
-  plusready: function() {
-    console.log("APP主页 设备加载完成");
-    let view = this.plus.getWin();
-    this.id = view.id;
-    this.ishome = this.plus.isHome();
-    this.statusBar(this.bgcolor);
-    let self = this;
-    view.addEventListener(
-      "show",
-      function(e) {
-        self.statusBar(self.bgcolor);
-      },
-      false
-    );
-  },
   created() {
-    let bgcolor = this.plus.randomColor();
-    this.bgcolor = bgcolor;
-    document.body.style.backgroundColor = bgcolor;
-    this.color = this.plus.reversalColor(bgcolor);
+    this.bgcolor = this.plus.randomColor();
+    document.body.style.backgroundColor = this.bgcolor;
+    this.color = this.plus.reversalColor(this.bgcolor);
   },
   mounted: function() {
     console.log("APP主页  mounted");
@@ -84,52 +115,41 @@ export default {
     statusBar(colorStr) {
       this.plus.setStatusBarBackground(colorStr);
     },
-    onVisibilityChange() {
-      // alert("onVisibilityChange");
-      this.statusBar(this.bgcolor);
-    },
     // #endregion
     // #region 窗体控制
     openAbc: function() {
       let self = this;
-      let v = this.plus.open(
-        "http://192.168.2.124:8081/",
-        "abc",
-        { abc: 121 },
-        {},
-        this.bgcolor
-      );
-      v.addEventListener(
-        "close",
-        function(e) {
-          self.statusBar(self.bgcolor);
-        },
-        false
-      );
-      v.addEventListener(
-        "hide",
-        function(e) {
-          self.statusBar(self.bgcolor);
-        },
-        false
-      );
+      let v = this.plus.open("http://192.168.2.124:8081/", "abc", {
+        abc: 121
+      });
+      v.addEventListener("close", function(e) {
+        self.statusBar(plus.webview.getTopWebview().bgcolor);
+      });
+      v.addEventListener("hide", function(e) {
+        self.statusBar(plus.webview.getTopWebview().bgcolor);
+      });
     },
     hideAbc: function() {
       this.plus.hide("abc");
     },
     openRandom: function() {
-      this.plus.open(
+      let self = this;
+      let v = this.plus.open(
         "http://192.168.2.124:8081/",
         new Date().valueOf(),
         {
           abc: 121
-        },
-        {},
-        this.bgcolor
+        }
       );
+      v.addEventListener("close", function(e) {
+        self.statusBar(plus.webview.getTopWebview().bgcolor);
+      });
+      v.addEventListener("hide", function(e) {
+        self.statusBar(plus.webview.getTopWebview().bgcolor);
+      });
     },
     closeMe: function() {
-      this.plus.close();
+      this.plus.back();
     },
     hideMe: function() {
       this.plus.hide();
@@ -199,6 +219,11 @@ export default {
 </script>
 
 <style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
