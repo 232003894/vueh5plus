@@ -1,3 +1,7 @@
+/**
+ * @module window
+ */
+
 import {
   os
 } from './os.js'
@@ -10,15 +14,15 @@ import qs from 'qs'
 /**
  * 构建 window id
  * @param {String} url url
- * @param {Object} extras 扩展参数
+ * @param {Object} ext 扩展参数
  */
-function getId(url, extras) {
+function getId(url, ext) {
   let tmp = url.split('?')
   let opt = {}
   if (tmp.length > 1) {
-    opt = utils.mix(true, opt, qs.parse(tmp[tmp.length - 1]), extras)
+    opt = utils.mix(true, opt, qs.parse(tmp[tmp.length - 1]), ext)
   } else {
-    opt = utils.mix(true, opt, extras)
+    opt = utils.mix(true, opt, ext)
   }
   let _qs = qs.stringify(opt)
   if (_qs) {
@@ -29,19 +33,19 @@ function getId(url, extras) {
 /**
  * 组装 window url
  * @param {String} url url
- * @param {Object} extras 扩展参数
+ * @param {Object} ext 扩展参数
  * @param {String} id 页面id 
  */
-function getUrl(url, extras, id) {
+function getUrl(url, ext, id) {
   let tmp = url.split('?')
   let opt = {}
   if (tmp.length > 1) {
-    opt = utils.mix(true, opt, qs.parse(tmp[tmp.length - 1]), extras)
+    opt = utils.mix(true, opt, qs.parse(tmp[tmp.length - 1]), ext)
   } else {
-    opt = utils.mix(true, opt, extras)
+    opt = utils.mix(true, opt, ext)
   }
   if (!id) {
-    id = getId(url, extras)
+    id = getId(url, ext)
   }
   opt = utils.mix(true, opt, { id: id })
   let _qs = qs.stringify(opt)
@@ -78,22 +82,36 @@ const defaultHide = {
 // #region 公共方法
 
 /**
+ * 设置自定义错误页面，必须是本地路径（Hbuilder的）
+ * @param {*} url 
+ */
+export function errorPage(url) {
+  defaultWin.errorPage = url
+  if (window.plus) {
+    getWin().setStyle({ errorPage: url })
+  }
+}
+
+/**
  * 创建新窗口
  * @param {String} url url
  * @param {String} id 窗口id 
- * @param {Object} extras 扩展参数
- * @param {Object} styles 样式参数
+ * @param {Object} opts {ext:{},style:{scalable:false,bounce:"",plusrequire:"ahead",softinputMode:"adjustPan"}}
  */
-export function creat(url = '', id = '', extras = {}, styles = {}) {
+export function create(url = '', id = '', opts) {
   let webview = null
   if (!url) {
     return webview
   }
   if (window.plus) {
     if (!id) {
-      id = getId(url, extras)
+      id = getId(url, opts.ext)
     }
-    webview = plus.webview.create(url, id, utils.mix({}, defaultWin, styles), extras)
+    webview = plus.webview.getWebviewById(id)
+    if (!webview) {
+      // 不存在
+      webview = plus.webview.create(url, id, utils.mix({}, defaultWin, opts.style), opts.ext)
+    }
     return webview
   } else {
     return webview
@@ -103,18 +121,19 @@ export function creat(url = '', id = '', extras = {}, styles = {}) {
 /**
  * 显示窗体
  * @param {String|window|WebviewObject} w 
- * @param {*} showOpt 
+ * @param {Object} opts {loading:true,ani:{duration: 300,aniShow: 'slide-in-right'}}
  */
-export function show(w, showOpt = {}) {
-  // export function show(w, showOpt = {}, showedCB = function () { }) {
+export function show(w, opts = {}) {
+  // export function show(w, opts = {}, showedCB = function () { }) {
   w = getWin(w)
   if (!w) {
     console.error('[show方法] 类型{String|window|WebviewObject}参数w不能为空!')
     return
   }
+  opts.loading = !!opts.loading
   if (window.plus) {
     let isVisible = w.isVisible()
-    let _Opt = utils.mix({}, defaultShow, showOpt)
+    let _Opt = utils.mix({}, defaultShow, opts.ani)
     // if (!utils.isFunction(showedCB)) {
     //   showedCB = function () { }
     // }
@@ -122,14 +141,23 @@ export function show(w, showOpt = {}) {
 
     if (!isVisible) {
       // 窗口不可见（从没调用过show或hide了）
-      ui.showWaiting()
-      setTimeout(() => {
-        // 设置系统状态栏背景颜色
-        w.show(_Opt.aniShow, _Opt.duration, function () {
-          // showedCB()
-          ui.closeWaiting()
-        })
-      }, defaultShow.duration)
+      if (opts.loading) {
+        ui.showWaiting()
+        setTimeout(() => {
+          // 设置系统状态栏背景颜色
+          w.show(_Opt.aniShow, _Opt.duration, function () {
+            // showedCB()
+            ui.closeWaiting()
+          })
+        }, defaultShow.duration)
+      } else {
+        setTimeout(() => {
+          // 设置系统状态栏背景颜色
+          w.show(_Opt.aniShow, _Opt.duration, function () {
+            // showedCB()
+          })
+        }, defaultShow.duration)
+      }
     } else {
       // 窗口可见（调用过show方法，即使被其它窗口挡住了也认为已显示）
       let topView = plus.webview.getTopWebview()
@@ -140,34 +168,41 @@ export function show(w, showOpt = {}) {
         // 窗口可见但不在最顶层
         if (_topIsHome) {
           // 最顶层的是home页
-          ui.showWaiting()
           hide(w, {
             aniHide: 'none'
           })
-          setTimeout(() => {
-            // 设置系统状态栏背景颜色
-            w.show(_Opt.aniShow, _Opt.duration, function () {
-              // showedCB()
-              ui.closeWaiting()
-            })
-          }, defaultHide.duration)
-          // } else if (_ishome) {
-          //   // 最顶层的不是home页，但w是home页面
-          //   w.showBehind(topView)
-          //   hide(topView)
-          //   setTimeout(() => {
-          //     showedCB()
-          //   }, defaultHide.duration)
+          if (opts.loading) {
+            ui.showWaiting()
+            setTimeout(() => {
+              // 设置系统状态栏背景颜色
+              w.show(_Opt.aniShow, _Opt.duration, function () {
+                // showedCB()
+                ui.closeWaiting()
+              })
+            }, defaultHide.duration)
+          } else {
+            setTimeout(() => {
+              // 设置系统状态栏背景颜色
+              w.show(_Opt.aniShow, _Opt.duration, function () {
+                // showedCB()
+              })
+            }, defaultHide.duration)
+          }
         } else {
           // 最顶层的不是home页并且w也不是是home页面
-          ui.showWaiting()
           w.showBehind(topView)
+          if (opts.loading) {
+            ui.showWaiting()
+            setTimeout(() => {
+              // showedCB()
+              ui.closeWaiting()
+            }, defaultHide.duration)
+          } else {
+            // setTimeout(() => {
+            //   // showedCB()
+            // }, defaultHide.duration)
+          }
           hide(topView)
-          setTimeout(() => {
-            // showedCB()
-            ui.closeWaiting()
-            // 设置系统状态栏背景颜色
-          }, defaultHide.duration)
         }
       }
     }
@@ -193,12 +228,15 @@ export function hide(w, hideOpts = {}) {
     if (isHome(w)) {
       return
     }
-    let _Opt = utils.mix({}, defaultHide, hideOpts)
+    let _Opt = { duration: defaultHide.duration }
+    if (hideOpts.duration || hideOpts.aniHide) {
+      _Opt = utils.mix({}, defaultHide, hideOpts)
+    }
     let isTop = plus.webview.getTopWebview().id === w.id
     if (!isTop) {
       w.hide("none", _Opt.duration)
     } else {
-      w.hide(_Opt.aniHide, _Opt.duration)
+      w.hide(_Opt.aniHide || "auto", _Opt.duration)
     }
   } else {
     console.log('[' + os.name + ']不支持hide方法!')
@@ -225,12 +263,16 @@ export function close(w, closeOpts = {}) {
         }
       }
     w.addEventListener('onclose', fn)
-    let _Opt = utils.mix({}, defaultHide, closeOpts)
+    let _Opt = { duration: defaultHide.duration }
+    if (closeOpts.duration || closeOpts.aniHide) {
+      _Opt = utils.mix({}, defaultHide, closeOpts)
+    }
+
     let isTop = plus.webview.getTopWebview().id === w.id
     if (!isTop) {
       w.close("none", _Opt.duration)
     } else {
-      w.close(_Opt.aniHide, _Opt.duration)
+      w.close(_Opt.aniHide || "auto", _Opt.duration)
     }
   } else {
     w.close()
@@ -241,27 +283,28 @@ export function close(w, closeOpts = {}) {
  * 创建并打开新窗口
  * @param {String} url url
  * @param {String} id 窗口id 
- * @param {Object} extras 扩展参数
- * @param {Object} styles 样式参数
+ * @param {Object} opts {loading:true,ani:{duration: 300,aniShow: 'slide-in-right'},ext:{},style:{scalable:false,bounce:"",plusrequire:"ahead",softinputMode:"adjustPan"}}
  */
-export function open(url = '', id = '', extras = {}, styles = {}) {
+export function open(url = '', id = '', opts = { loading: true, ext: {}, ani: {}, style: {} }) {
   if (!url) {
     return null
   }
   if (window.plus) {
     if (!id) {
-      id = getId(url, extras)
+      id = getId(url, opts.ext)
     }
     let view = plus.webview.getWebviewById(id)
     if (!view) {
       // 不存在
-      view = creat(url, id, extras, styles)
+      view = create(url, id, { ext: opts.ext, style: opts.style })
+    } else {
+      view.setStyle(opts.style)
     }
-    show(view)
+    show(view, { loading: opts.loading, ani: opts.ani })
     return view
   } else if (!os.plus) {
     // web，非web
-    let _opt = getUrl(url, extras, id)
+    let _opt = getUrl(url, opts.ext, id)
     url = _opt.url
     id = _opt.id
     let views = [...mainWin.__all_wins]
@@ -366,6 +409,28 @@ export function isTop(w) {
     return !(w.document.hidden || w.document.webkitHidden)
   }
 }
+
+/**
+ * 创建并打开侧滑窗口
+ * @param {String} url url
+ * @param {String} id 窗口id 
+ * @param {Object} opts {loading:true,ani:{duration: 300,aniShow: 'slide-in-right'},ext:{},style:{scalable:false,bounce:"",plusrequire:"ahead",softinputMode:"adjustPan"}}
+ */
+export function menu(url = '', id = '', opts = { loading: true, ext: {}, ani: {}, style: {} }) {
+  if (window.plus) {
+    let w = getWin();
+    let side = open(url, id, opts);
+    side.addEventListener("close", function () {
+      w.setStyle({ mask: "none" });
+      side = null;
+    }, false);
+    side.addEventListener("hide", function () {
+      w.setStyle({ mask: "none" });
+    }, false);
+    w.setStyle({ mask: "rgba(0,0,0,0.5)" });
+  }
+}
+
 // #endregion
 
 

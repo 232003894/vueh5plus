@@ -12,12 +12,13 @@
     </p>
     <p>
       窗体控制：<br>
-      <button @click="goHome">回到首页</button>
+      <button v-if="!ishome" @click="goHome">回到首页</button>
       <button @click="openAbc">打开abc</button>
       <button @click="hideAbc">隐藏abc</button>
       <button @click="openRandom">打开随机id</button>
-      <button @click="closeMe" >关闭自己</button>
-      <button  v-if="!ishome" @click="hideMe">隐藏自己</button>
+      <button v-if="!ishome" @click="closeMe" >关闭自己</button>
+      <button v-if="!ishome" @click="hideMe">隐藏自己</button>
+      <button  @click="openError">错误页</button>
     </p>
     <p>
       提示消息-仅文字+换行：<br>
@@ -30,6 +31,13 @@
       <button @click="toastOK">成 功</button>
       <button @click="toastError">失 败</button>
       <button @click="toastWarn"> 警 告</button>
+    </p>
+    <p>
+      侧滑菜单：<br>
+      <button @click="menuLeft">左侧滑</button>
+      <button @click="menuRight">右侧滑</button>
+      <button @click="menuBottom">底侧滑</button>
+      <button @click="menuTop">顶侧滑</button>
     </p>
   </div>
 </template>
@@ -63,29 +71,28 @@ export default {
 
       setTimeout(() => {
         let handle1 = {
-          index: 100,
           act() {
             console.log(self.$options.name + " back  handle1");
           }
         };
         let handle2 = {
-          index: 100,
           act() {
             console.log(self.$options.name + " back  handle2");
           }
         };
-        let handle3 = {
+        self.plus.addBack(handle1);
+        self.plus.addBack(handle2);
+        let handle3 = self.plus.addBack({
           index: 9,
           act() {
             console.log(self.$options.name + " back  handle3");
+            return false;
           }
-        };
-        self.plus.addBack(handle1);
-        self.plus.addBack(handle2);
-        self.plus.addBack(handle3);
+        });
         self.plus.removeBack(handle3);
         // console.log(self.plus.acts(self));
       }, 17);
+      // this.plus.errorPage("/error.html");
     }
   },
   name: "app",
@@ -117,10 +124,15 @@ export default {
     },
     // #endregion
     // #region 窗体控制
+    openError: function() {
+      this.plus.open("/1156456.html");
+    },
     openAbc: function() {
       let self = this;
-      let v = this.plus.open("http://192.168.2.124:8081/", "abc", {
-        abc: 121
+      let v = this.plus.open("http://192.168.2.124:8081/l", "abc", {
+        ext: {
+          abc: 121
+        }
       });
       v.addEventListener("close", function(e) {
         self.statusBar(plus.webview.getTopWebview().bgcolor);
@@ -138,7 +150,9 @@ export default {
         "http://192.168.2.124:8081/",
         new Date().valueOf(),
         {
-          abc: 121
+          ext: {
+            abc: 121
+          }
         }
       );
       v.addEventListener("close", function(e) {
@@ -211,6 +225,48 @@ export default {
         duration: "short",
         icon: "/ui/warn.png",
         lineLength: 13
+      });
+    },
+    // #endregion
+    // #region 侧滑菜单
+    menuLeft: function() {
+      this.plus.menu("http://192.168.2.124:8081/", "menuLeft", {
+        ani: { aniShow: "slide-in-left" },
+        style: {
+          right: "30%",
+          width: "70%",
+          popGesture: "none"
+        }
+      });
+    },
+    menuRight: function() {
+      this.plus.menu("http://192.168.2.124:8081/", "menuRight", {
+        ani: { aniShow: "slide-in-right" },
+        style: {
+          left: "30%",
+          width: "70%",
+          popGesture: "none"
+        }
+      });
+    },
+    menuBottom: function() {
+      this.plus.menu("http://192.168.2.124:8081/", "menuBottom", {
+        ani: { aniShow: "slide-in-bottom" },
+        style: {
+          top: "70%",
+          height: "30%",
+          popGesture: "none"
+        }
+      });
+    },
+    menuTop: function() {
+      this.plus.menu("http://192.168.2.124:8081/", "menuTop", {
+        ani: { aniShow: "slide-in-top" },
+        style: {
+          bottom: "70%",
+          height: "30%",
+          popGesture: "none"
+        }
       });
     }
     // #endregion

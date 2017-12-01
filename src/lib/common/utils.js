@@ -1,3 +1,10 @@
+
+/**
+ * 类型和验证
+ * @module utils.type
+ */
+// #region type
+
 let class2type = {}
 
 let types = ['Boolean', 'Number', 'String', 'Function', 'Array', 'Date', 'RegExp', 'Object', 'Error']
@@ -8,9 +15,8 @@ types.forEach((name, i) => {
 
 /**
  * 获取类型
- * @export
  * @param {any} obj
- * @returns
+ * @returns {String}
  */
 export function getType(obj) {
   /**
@@ -29,7 +35,6 @@ export function getType(obj) {
 
 /**
  * 判定是否为字符串
- * @export
  * @param {any} value
  * @returns {boolean} 是否为字符串
  */
@@ -38,8 +43,16 @@ export function isString(value) {
 }
 
 /**
+ * 判定是否为数值
+ * @param {any} value
+ * @returns {boolean} 是否为数值
+ */
+export function isNumber(value) {
+  return getType(value) === 'number'
+}
+
+/**
  * 判定是否为正则
- * @export
  * @param {any} value
  * @returns {boolean} 是否为正则
  */
@@ -49,7 +62,6 @@ export function isRegExp(value) {
 
 /**
  * 判定是否为一个函数
- * @export
  * @param {any} value
  * @returns {boolean} 是否为一个函数
  */
@@ -59,7 +71,6 @@ export function isFunction(value) {
 
 /**
  * 判定是否为日期
- * @export
  * @param {any} value
  * @returns {boolean} 是否为日期
  */
@@ -69,7 +80,6 @@ export function isDate(value) {
 
 /**
  * 判定是否为数组
- * @export
  * @param {any} value
  * @returns {boolean} 是否为数组
  */
@@ -79,7 +89,6 @@ export function isArray(value) {
 
 /**
  * 判定是否为一个window对象
- * @export
  * @param {any} obj
  * @returns {boolean} 是否为一个window对象
  */
@@ -89,7 +98,6 @@ export function isWindow(obj) {
 
 /**
  * 判定是否为一个对象
- * @export
  * @param {any} obj
  * @returns {boolean} 是否为一个对象
  */
@@ -99,7 +107,6 @@ export function isObject(obj) {
 
 /**
  * 判定是否为一个纯净的JS对象, 不能为window, 任何类(包括自定义类)的实例,元素节点,文本节点
- * @export
  * @param {any} obj
  * @returns {boolean} 是否为一个纯净的JS对象
  */
@@ -127,7 +134,151 @@ export function isURL(str_url) {
   var re = new RegExp(strRegex);
   return re.test(str_url);
 }
+//  #endregion
 
+/**
+ * 文本处理
+ * @module utils.txt
+ */
+// #region txt
+/**
+ * 文本自动换行
+ * @param {String} txt 文本
+ * @param {Number} lineLength 换行长度
+ * @param {String} lineBreak 换行符
+ */
+export function strBreak(txt = "", lineLength = 10, lineBreak = "\r\n") {
+  if (!txt) {
+    return ''
+  }
+  lineLength = toFixed(lineLength)
+  if (lineLength <= 0) {
+    return txt
+  }
+  // http://www.makaidong.com/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E7%9F%A5%E8%AF%86%E5%BA%93/18649.shtml
+  if (txt.replace(/[^\x00-\xff]/g, "xx").length <= lineLength) {
+    return txt;
+  }
+  var str = "";
+  var l = 0;
+  var schar;
+  for (var i = 0; (schar = txt.charAt(i)); i++) {
+    str += schar;
+    l += schar.match(/[^\x00-\xff]/) != null ? 2 : 1;
+    if (l >= lineLength) {
+      str += lineBreak;
+      l = 0;
+    }
+  }
+  return str;
+}
+
+/**
+ * 去html标签
+ * @param {String} html
+ * @returns {String}
+ */
+export function delHtmlTag(html) {
+  var doc = ''
+  if (getType(html) === 'string') {
+    // doc = html.replace(/^[^\/]+\/\*!?\s?/, '').replace(/\*\/[^\/]+$/, '').trim().replace(/>\s*</g, '><')
+    doc = html.replace(/<\/?.+?>/g, '')
+  }
+  return doc
+}
+//  #endregion
+
+/**
+ * 颜色和样式
+ * @module utils.style
+ */
+// #region color
+/**
+ * 计算颜色值的反色，colorStr格式为：rgb(0,0,0),#000000或者#f00
+ * @param {String} colorStr colorStr格式为：rgb(0,0,0),#000000或者#f00
+ */
+export function reversalColor(colorStr) {
+  var sixNumReg = /^#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})*$/gi;
+  var threeNumReg = /^#([a-fA-F0-9]{1})([a-fA-F0-9]{1})([a-fA-F0-9]{1})$/gi;
+  var rgbReg = /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/gi;
+  var c1 = 0,
+    c2 = 0,
+    c3 = 0;
+  var parseHexToInt = function (hex) {
+    return parseInt(hex, 16);
+  };
+  var parseIntToHex = function (int) {
+    return int.toString(16);
+  };
+  if (sixNumReg.test(colorStr)) {
+    sixNumReg.exec(colorStr);
+    c1 = parseHexToInt(RegExp.$1);
+    c2 = parseHexToInt(RegExp.$2);
+    c3 = parseHexToInt(RegExp.$3);
+  } else if (threeNumReg.test(colorStr)) {
+    threeNumReg.exec(colorStr);
+    c1 = parseHexToInt(RegExp.$1 + RegExp.$1);
+    c2 = parseHexToInt(RegExp.$2 + RegExp.$2);
+    c3 = parseHexToInt(RegExp.$3 + RegExp.$3);
+  } else if (rgbReg.test(colorStr)) {
+    //rgb color 直接就是十进制，不用转换
+    rgbReg.exec(colorStr);
+    c1 = RegExp.$1;
+    c2 = RegExp.$2;
+    c3 = RegExp.$3;
+  } else {
+    throw new Error(
+      "Error color string format. eg.[rgb(0,0,0),#000000,#f00]"
+    );
+  }
+  c1 = parseIntToHex(255 - c1);
+  c2 = parseIntToHex(255 - c2);
+  c3 = parseIntToHex(255 - c3);
+  return (
+    "#" +
+    (c1 < 10 ? "0" + c1 : c1) +
+    (c2 < 10 ? "0" + c2 : c2) +
+    (c3 < 10 ? "0" + c3 : c3)
+  );
+}
+
+/**
+ * 获取随机颜色
+ * @param {Boolean} useRgb 
+ */
+export function randomColor(useRgb = false) {
+  let _color = ''
+  if (!useRgb) {
+    // http://blog.csdn.net/inite/article/details/52554142
+    _color = '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
+  } else {
+    _color =
+      "rgb(" +
+      Math.floor(Math.random() * 256) +
+      "," +
+      Math.floor(Math.random() * 256) +
+      "," +
+      Math.floor(Math.random() * 256) +
+      ")";
+  }
+  return _color
+}
+
+/**
+ * 获取dom元素的style
+ * @param {any} domObj
+ * @returns {Object} style
+ */
+export function getStyle(domObj) {
+  return domObj.currentStyle != null ? domObj.currentStyle : window.getComputedStyle(domObj, false)
+}
+//  #endregion
+
+/**
+ * 对象处理
+ * @module utils.object
+ */
+// #region object
 /**
  * 用于合并多个对象或深克隆,类似于jQuery.extend；
  * 数组也可以合并,这里数组可以理解为以索引为属性的对象；
@@ -136,7 +287,6 @@ export function isURL(str_url) {
  * deep : 如果是true，合并成为递归（又叫做深拷贝）。
  * target : 对象扩展。这将接收新的属性。
  * object1 -- objectN : 一个对象，它包含额外的属性合并到第一个参数。
- * @export
  * @returns {Object} 返回 target
  */
 export function mix() {
@@ -199,21 +349,6 @@ export function mix() {
     }
   }
   return target
-}
-
-/**
- * 去html标签
- * @export
- * @param {String} html
- * @returns
- */
-export function delHtmlTag(html) {
-  var doc = ''
-  if (getType(html) === 'string') {
-    // doc = html.replace(/^[^\/]+\/\*!?\s?/, '').replace(/\*\/[^\/]+$/, '').trim().replace(/>\s*</g, '><')
-    doc = html.replace(/<\/?.+?>/g, '')
-  }
-  return doc
 }
 
 /**
@@ -293,137 +428,27 @@ export function equals(x, y, propertys) {
 
   return true
 }
+//  #endregion
 
 /**
- * 获取dom元素的style
- * @export
- * @param {any} domObj
- * @returns {Object} style
+ * 数字处理
+ * @module utils.number
  */
-export function getStyle(domObj) {
-  return domObj.currentStyle != null ? domObj.currentStyle : window.getComputedStyle(domObj, false)
-}
-
+// #region number
 import accounting from 'accounting'
+
 /**
  * 把 Number 四舍五入为指定小数位数的数字
- * @export
  * @param {Number} value
  * @param {Number} precision
- * @returns {Number} 数字
+ * @param {Boolean} toStr
+ * @returns {*} 四舍五入后的数字或字符串
  */
-export function toFixed(value, precision = 0) {
+export function toFixed(value, precision = 0, toStr = false) {
   let fixed = accounting.toFixed(value, precision) * 1
+  if (toStr === true) {
+    fixed = accounting.toFixed(value, precision)
+  }
   return fixed
 }
-/**
- * 把 Number 四舍五入为指定小数位数的数字
- * @export
- * @param {Number} value
- * @param {Number} precision
- * @returns {String} 数字字符串
- */
-export var toFixedStr = accounting.toFixed
-
-/**
- * 文本自动换行
- * @param {String} txt 文本
- * @param {Number} lineLength 换行长度
- * @param {String} lineBreak 换行符
- */
-export function strBreak(txt = "", lineLength = 10, lineBreak = "\r\n") {
-  if (!txt) {
-    return ''
-  }
-  lineLength = toFixed(lineLength)
-  if (lineLength <= 0) {
-    return txt
-  }
-  // http://www.makaidong.com/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E7%9F%A5%E8%AF%86%E5%BA%93/18649.shtml
-  if (txt.replace(/[^\x00-\xff]/g, "xx").length <= lineLength) {
-    return txt;
-  }
-  var str = "";
-  var l = 0;
-  var schar;
-  for (var i = 0; (schar = txt.charAt(i)); i++) {
-    str += schar;
-    l += schar.match(/[^\x00-\xff]/) != null ? 2 : 1;
-    if (l >= lineLength) {
-      str += lineBreak;
-      l = 0;
-    }
-  }
-  return str;
-}
-
-/**
- * 计算颜色值的反色，colorStr格式为：rgb(0,0,0),#000000或者#f00
- * @param {String} colorStr colorStr格式为：rgb(0,0,0),#000000或者#f00
- */
-export function reversalColor(colorStr) {
-  var sixNumReg = /^#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})*$/gi;
-  var threeNumReg = /^#([a-fA-F0-9]{1})([a-fA-F0-9]{1})([a-fA-F0-9]{1})$/gi;
-  var rgbReg = /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/gi;
-  var c1 = 0,
-    c2 = 0,
-    c3 = 0;
-  var parseHexToInt = function (hex) {
-    return parseInt(hex, 16);
-  };
-  var parseIntToHex = function (int) {
-    return int.toString(16);
-  };
-  if (sixNumReg.test(colorStr)) {
-    sixNumReg.exec(colorStr);
-    c1 = parseHexToInt(RegExp.$1);
-    c2 = parseHexToInt(RegExp.$2);
-    c3 = parseHexToInt(RegExp.$3);
-  } else if (threeNumReg.test(colorStr)) {
-    threeNumReg.exec(colorStr);
-    c1 = parseHexToInt(RegExp.$1 + RegExp.$1);
-    c2 = parseHexToInt(RegExp.$2 + RegExp.$2);
-    c3 = parseHexToInt(RegExp.$3 + RegExp.$3);
-  } else if (rgbReg.test(colorStr)) {
-    //rgb color 直接就是十进制，不用转换
-    rgbReg.exec(colorStr);
-    c1 = RegExp.$1;
-    c2 = RegExp.$2;
-    c3 = RegExp.$3;
-  } else {
-    throw new Error(
-      "Error color string format. eg.[rgb(0,0,0),#000000,#f00]"
-    );
-  }
-  c1 = parseIntToHex(255 - c1);
-  c2 = parseIntToHex(255 - c2);
-  c3 = parseIntToHex(255 - c3);
-  return (
-    "#" +
-    (c1 < 10 ? "0" + c1 : c1) +
-    (c2 < 10 ? "0" + c2 : c2) +
-    (c3 < 10 ? "0" + c3 : c3)
-  );
-}
-
-/**
- * 获取随机颜色
- * @param {Boolean} useRgb 
- */
-export function randomColor(useRgb = false) {
-  let _color = ''
-  if (!useRgb) {
-    // http://blog.csdn.net/inite/article/details/52554142
-    _color = '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
-  } else {
-    _color =
-      "rgb(" +
-      Math.floor(Math.random() * 256) +
-      "," +
-      Math.floor(Math.random() * 256) +
-      "," +
-      Math.floor(Math.random() * 256) +
-      ")";
-  }
-  return _color
-}
+//  #endregion

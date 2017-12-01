@@ -6,9 +6,7 @@ var vue
 // listen的集合
 const _listens = new WeakMap()
 
-/**
- * h5+插件扩展
- */
+// h5+插件扩展
 const plusExtend = {
   created: function () {
     if (!vue) {
@@ -76,10 +74,7 @@ const plusExtend = {
   }
 }
 
-/**
- * Dom加载完成
- * @param {Function} callback 
- */
+// Dom加载完成
 function onload(callback, vm = null) {
   let readyRE = /complete|loaded|interactive/
   if (readyRE.test(document.readyState)) {
@@ -100,10 +95,7 @@ function onload(callback, vm = null) {
   return this
 }
 
-/**
- * 设备的加载完成
- * @param {Function} callback 
- */
+// 设备的加载完成
 function onplusload(callback, vm = null) {
   if (window.plus) {
     // 解决callback与plusready事件的执行时机问题(典型案例:showWaiting,closeWaiting)
@@ -193,14 +185,26 @@ function onplusload(callback, vm = null) {
   }
 })()
 
-/**
- * 安装插件
- */
+// 安装插件
 const h5plus = {
   install(Vue, options) {
     vue = Vue
     Vue.mixin(plusExtend)
-    Vue.prototype.plus = _plus
+    let __plus = _plus.mix(true, {}, _plus)
+    if (options) {
+      if (options.errorPage && _plus.isString(options.errorPage)) {
+        _plus.errorPage(options.errorPage)
+        delete options.errorPage
+      }
+      for (var p in options) {
+        // 删除类型不一致的属性
+        if (_plus[p] && _plus.getType(_plus[p]) !== _plus.getType(options[p])) {
+          delete options[p]
+        }
+      }
+      _plus.mix(true, __plus, options)
+    }
+    Vue.prototype.plus = __plus
   }
 }
 

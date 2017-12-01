@@ -3,13 +3,16 @@
 ✔ window @done(17-11-28 11:23)
   ✔ 控制Webview注入5+ API时机 plus.webview.WebviewStyles 的 plusrequire @done(17-11-28 11:20)
   ✔ 弹出系统软键盘模式 plus.webview.WebviewStyles 的 softinputMode 安卓无效 @done(17-11-28 11:20)
+  ✔ open是否显示loading @done(17-11-30 14:56)
+  ✔ open需要aniShow参数 @done(17-11-30 14:56)
 ✔ 全屏、状态栏 @done(17-11-30 12:08)
   ✔ navigator:setStatusBarBackground @done(17-11-27 17:12)
 ✔ back @done(17-11-30 12:07)
   ✔ back按键 @done(17-11-30 12:07)
   ✔ back组 @done(17-11-30 12:07)
   ✔ 首页关闭 @done(17-11-30 12:07)
-☐ menu
-☐ 自定义扩展：nativeUI 等
+✔ menu @done(17-11-30 14:56)
+✔ errorPage @done(17-11-30 15:21)
+✔ 自定义扩展：nativeUI 等 @done(17-12-01 09:10)
 Bug
 ✔ randomColor 方法有bug @done(17-11-27 09:17)

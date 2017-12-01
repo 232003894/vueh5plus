@@ -1,3 +1,7 @@
+/**
+ * @module nativeUI
+ */
+
 import {
   os
 } from './os.js'

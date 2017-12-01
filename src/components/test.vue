@@ -34,8 +34,8 @@ export default {
           act() {
             console.log(self.$options.name + " back handle3");
             self.plus.removeBack(handle3);
-            alert(self.$options.name + " back  handle3");
-            return false;
+            // alert(self.$options.name + " back  handle3");
+            // return false;
           }
         };
         self.plus.addBack(handle1);

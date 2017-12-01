@@ -1,12 +1,17 @@
-//跨webView广播通知
+/**
+ * 跨webView广播通知
+ * @module broadcast
+ */
 
 /**
  * 广播通知
- * @param {*} name 事件名称
- * @param {*} data 事件数据
- * @param {*} opts 需要通知的窗体参数，self：是否通知自己，默认false，ids：指定通知的窗体id集合，默认[] 
+ * @param {String} name - 事件名称
+ * @param {Object} [data={}] - 事件数据
+ * @param {Object} [opts] - 需要通知的窗体参数
+ * @param {Bollean} [opts.self=false] - 是否通知自己<br>false:不通知自己
+ * @param {Array} [opts.ids=[]] - 指定通知的窗体id集合<br>[]:通知所有窗体
  */
-export function send(name, data, { self = false, ids = [] } = {}) {
+export function send(name, data = {}, { self = false, ids = [] } = {}) {
     if (window.plus) {
         // 设备的情况
         let views = plus.webview.all()
@@ -23,7 +28,9 @@ export function send(name, data, { self = false, ids = [] } = {}) {
             if (v.id == _indexID && !self) {
                 continue
             }
-            // console.log('send')
+            if (!data) {
+                data = {}
+            }
             v.evalJS(`document.dispatchEvent(new CustomEvent('${name}', {
                 detail:JSON.parse('${JSON.stringify(data)}'),
                 bubbles: true,
