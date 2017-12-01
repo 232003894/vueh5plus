@@ -63,7 +63,7 @@ if (match) {
 
 
 /**
- * os属性
+ * 浏览器属性
  * @property {String} name 运行环境名称
  * @property {Number} version 版本
  * @property {Boolean} wechat 是否微信
