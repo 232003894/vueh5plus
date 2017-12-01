@@ -11,7 +11,7 @@ import qs from 'qs'
 
 // #region 辅助方法
 
-/**
+/*
  * 构建 window id
  * @param {String} url url
  * @param {Object} ext 扩展参数
@@ -30,7 +30,7 @@ function getId(url, ext) {
   }
   return tmp[0] + _qs
 }
-/**
+/*
  * 组装 window url
  * @param {String} url url
  * @param {Object} ext 扩展参数
@@ -83,7 +83,7 @@ const defaultHide = {
 
 /**
  * 设置自定义错误页面，必须是本地路径（Hbuilder的）
- * @param {*} url 
+ * @param {String} url 
  */
 export function errorPage(url) {
   defaultWin.errorPage = url

@@ -1,6 +1,6 @@
 /**
- * 系统环境
- * @module runtime
+ * 浏览器用于 HTTP 请求的用户代理头的值
+ * @module userAgent
  */
 
 const ua = navigator.userAgent

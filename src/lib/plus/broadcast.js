@@ -10,6 +10,8 @@
  * @param {Object} [opts] - 需要通知的窗体参数
  * @param {Bollean} [opts.self=false] - 是否通知自己<br>false:不通知自己
  * @param {Array} [opts.ids=[]] - 指定通知的窗体id集合<br>[]:通知所有窗体
+ * @example <caption>广播通知已登录（包括本窗体）.</caption>
+ * this.plus.send("logined", { uid: 1 }, { self: true });
  */
 export function send(name, data = {}, { self = false, ids = [] } = {}) {
     if (window.plus) {

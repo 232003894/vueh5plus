@@ -177,7 +177,7 @@ export default {
       this.plus.toast(
         "创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。 提示消息显示时间可通过options的duration属性控制，长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。",
         {
-          position: "top",
+          verticalAlign: "top",
           duration: "short",
           lineLength: 0
         }
@@ -187,7 +187,7 @@ export default {
       this.plus.toast(
         "创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。 提示消息显示时间可通过options的duration属性控制，长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。",
         {
-          position: "center",
+          verticalAlign: "center",
           duration: "short",
           lineLength: 13
         }
@@ -197,7 +197,7 @@ export default {
       this.plus.toast(
         "创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。 提示消息显示时间可通过options的duration属性控制，长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。",
         {
-          position: "bottom",
+          verticalAlign: "bottom",
           duration: "short",
           lineLength: 40
         }
@@ -205,7 +205,7 @@ export default {
     },
     toastOK: function() {
       this.plus.toast("提案成功", {
-        position: "center",
+        verticalAlign: "center",
         duration: "short",
         icon: "/ui/ok.png",
         lineLength: 13
@@ -213,7 +213,7 @@ export default {
     },
     toastError: function() {
       this.plus.toast("提案失败", {
-        position: "center",
+        verticalAlign: "center",
         duration: "short",
         icon: "/ui/error.png",
         lineLength: 13
@@ -221,7 +221,7 @@ export default {
     },
     toastWarn: function() {
       this.plus.toast("提案警告", {
-        position: "center",
+        verticalAlign: "center",
         duration: "short",
         icon: "/ui/warn.png",
         lineLength: 13

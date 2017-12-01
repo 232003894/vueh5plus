@@ -1,4 +1,5 @@
 /**
+ * 统原生界面
  * @module nativeUI
  */
 
@@ -8,9 +9,7 @@ import {
 import * as utils from '../common/utils'
 
 // #region 常量
-/**
- * 载入中
- */
+// 载入中
 const loadingTitle = ''
 
 const WaitingOptions = {
@@ -28,7 +27,7 @@ const WaitingOptions = {
 }
 const toastOption = {
   // 提示消息在屏幕中的垂直位置：可选值为"top"、"center"、"bottom"，分别为垂直居顶、居中、居底，未设置时默认值为"bottom"
-  position: 'bottom',
+  verticalAlign: 'bottom',
   // 提示消息框显示的时间：可选值为"long"、"short"，值为"long"时显示时间约为3.5s，值为"short"时显示时间约为2s，未设置时默认值为"short"。
   duration: 'short',
   // 提示消息框上显示的图标：png格式，并且必须是本地资源地址；图标与文字分两行显示，上面显示图标，下面显示文字；
@@ -40,7 +39,9 @@ const toastOption = {
 
 /**
  * 显示系统等待对话框
- * @param {String} title 标题，默认值''
+ * @param {String} title='' - 标题
+ * @example 
+ * this.plus.showWaiting("载入中");
  */
 export function showWaiting(title = '') {
   if (!title) {
@@ -48,15 +49,17 @@ export function showWaiting(title = '') {
   }
   if (window.plus) {
     plus.nativeUI.showWaiting(title, WaitingOptions);
-    return true
+    // return true
   } else {
     console.log('[' + os.name + ']不支持nativeUI的showWaiting方法!')
-    return false
+    // return false
   }
 }
 
 /**
  * 关闭系统等待对话框
+ * @example 
+ * this.plus.closeWaiting();
  */
 export function closeWaiting() {
   if (window.plus) {
@@ -70,8 +73,37 @@ export function closeWaiting() {
 
 /**
  * 显示自动消失的提示消息
- * @param {String} msg 提示消息上显示的文字内容
- * @param {Object} opts  提示消息的参数，可设置提示消息显示的图标、持续时间、位置、自动换行等。
+ * @param {String} msg - 提示消息上显示的文字内容
+ * @param {Object} opts - 提示消息参数，只有<b>lineLength属性</b>是扩展的，<br>下列只是部分常用的，其他完整的可以参考{@link http://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.ToastOptions HTML5+ API}。
+ * @param {Number} [opts.lineLength=0] - 提示信息（msg）的手动换行长度，单位是字节，0表示不处理。
+ * @param {String} [opts.verticalAlign='bottom'] - 屏幕中的垂直位置：可选值为"top"、"center"、"bottom"，分别为垂直居顶、居中、居底。
+ * @param {String} [opts.icon=''] - 显示的图标：png格式，并且必须是本地资源地址；<br>默认图标与文字分两行显示，上面显示图标，下面显示文字。
+ * @param {String} [opts.duration='short'] - 显示的时间：可选值为"long"、"short"，"long"约为3.5s，"short"约为2s。
+ * @example <caption>垂直居顶自动换行的消息.</caption>
+ * this.plus.toast(
+ *  "创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。",
+ *  {
+ *    verticalAlign: "top",
+ *    duration: "short",
+ *    lineLength: 0
+ *  }
+ *);
+ * @example <caption>垂直居中13个字节换行的消息.</caption>
+ * this.plus.toast(
+ *  "创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。",
+ *  {
+ *    verticalAlign: "center",
+ *    duration: "short",
+ *    lineLength: 13
+ *  }
+ *);
+ * @example <caption>带成功图标的消息.</caption>
+ * // 图标png格式，并且必须是本地资源地址（Hbuilder的App项目路径，不能是远程路径）
+ * this.plus.toast("提案成功", {
+ *    verticalAlign: "center",
+ *    icon: "/ui/ok.png"
+ *  }
+ *);
  */
 export function toast(msg = '', opts = {}) {
   if (!msg || !utils.isString(msg)) {
@@ -79,10 +111,9 @@ export function toast(msg = '', opts = {}) {
   }
   opts = utils.mix({}, toastOption, opts)
   msg = utils.strBreak(msg, opts.lineLength)
-  if (opts.position !== 'bottom' && opts.position !== 'top' && opts.position !== 'center') {
-    opts.position = 'bottom'
+  if (opts.verticalAlign !== 'bottom' && opts.verticalAlign !== 'top' && opts.verticalAlign !== 'center') {
+    opts.verticalAlign = 'bottom'
   }
-  opts.verticalAlign = opts.position
   if (opts.duration !== 'long' && opts.duration !== 'short') {
     opts.duration = 'short'
   }
@@ -91,10 +122,10 @@ export function toast(msg = '', opts = {}) {
   }
   if (window.plus) {
     plus.nativeUI.toast(msg, opts)
-    return true
+    // return true
   } else {
     console.log('[' + os.name + ']不支持nativeUI的toast方法!')
     console.log('[toast]\n' + msg)
-    return false
+    // return false
   }
 }
