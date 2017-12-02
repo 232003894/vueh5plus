@@ -6,7 +6,7 @@
 /**
  * 广播通知
  * @param {String} name - 事件名称
- * @param {Object} [data={}] - 事件数据
+ * @param {Object} [data] - 事件数据
  * @param {Object} [opts] - 需要通知的窗体参数
  * @param {Bollean} [opts.self=false] - 是否通知自己<br>false:不通知自己
  * @param {Array} [opts.ids=[]] - 指定通知的窗体id集合<br>[]:通知所有窗体

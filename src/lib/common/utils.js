@@ -15,7 +15,7 @@ types.forEach((name, i) => {
 
 /**
  * 获取类型
- * @param {any} obj
+ * @param {*} obj
  * @returns {String}
  */
 export function getType(obj) {
@@ -35,7 +35,7 @@ export function getType(obj) {
 
 /**
  * 判定是否为字符串
- * @param {any} value
+ * @param {*} value
  * @returns {boolean} 是否为字符串
  */
 export function isString(value) {
@@ -44,7 +44,7 @@ export function isString(value) {
 
 /**
  * 判定是否为数值
- * @param {any} value
+ * @param {*} value
  * @returns {boolean} 是否为数值
  */
 export function isNumber(value) {
@@ -52,8 +52,17 @@ export function isNumber(value) {
 }
 
 /**
+ * 判定是否为布尔
+ * @param {*} value
+ * @returns {boolean} 是否为布尔
+ */
+export function isBoolean(value) {
+  return getType(value) === 'boolean'
+}
+
+/**
  * 判定是否为正则
- * @param {any} value
+ * @param {*} value
  * @returns {boolean} 是否为正则
  */
 export function isRegExp(value) {
@@ -62,7 +71,7 @@ export function isRegExp(value) {
 
 /**
  * 判定是否为一个函数
- * @param {any} value
+ * @param {*} value
  * @returns {boolean} 是否为一个函数
  */
 export function isFunction(value) {
@@ -71,7 +80,7 @@ export function isFunction(value) {
 
 /**
  * 判定是否为日期
- * @param {any} value
+ * @param {*} value
  * @returns {boolean} 是否为日期
  */
 export function isDate(value) {
@@ -80,7 +89,7 @@ export function isDate(value) {
 
 /**
  * 判定是否为数组
- * @param {any} value
+ * @param {*} value
  * @returns {boolean} 是否为数组
  */
 export function isArray(value) {
@@ -89,7 +98,7 @@ export function isArray(value) {
 
 /**
  * 判定是否为一个window对象
- * @param {any} obj
+ * @param {*} obj
  * @returns {boolean} 是否为一个window对象
  */
 export function isWindow(obj) {
@@ -98,7 +107,7 @@ export function isWindow(obj) {
 
 /**
  * 判定是否为一个对象
- * @param {any} obj
+ * @param {*} obj
  * @returns {boolean} 是否为一个对象
  */
 export function isObject(obj) {
@@ -107,7 +116,7 @@ export function isObject(obj) {
 
 /**
  * 判定是否为一个纯净的JS对象, 不能为window, 任何类(包括自定义类)的实例,元素节点,文本节点
- * @param {any} obj
+ * @param {*} obj
  * @returns {boolean} 是否为一个纯净的JS对象
  */
 export function isPlainObject(obj) {
@@ -266,7 +275,7 @@ export function randomColor(useRgb = false) {
 
 /**
  * 获取dom元素的style
- * @param {any} domObj
+ * @param {*} domObj
  * @returns {Object} style
  */
 export function getStyle(domObj) {
