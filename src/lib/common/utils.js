@@ -147,7 +147,7 @@ export function isURL(str) {
 //  #endregion
 
 /**
- * 文本处理
+ * 文本换行处理，去html标签
  * @module utils.txt
  */
 // #region txt
@@ -201,11 +201,14 @@ export function delHtmlTag(html) {
 
 /**
  * 颜色和样式
+ * 1.获取dom元素的style
+ * 2.随机颜色
+ * 3.颜色值的反色
  * @module utils.style
  */
 // #region color
 /**
- * 计算颜色值的，colorStr格式为：rgb(0,0,0),#000000或者#f00
+ * 计算颜色值的反色，colorStr格式为：rgb(0,0,0),#000000或者#f00
  * @param {String} colorStr colorStr格式为：rgb(0,0,0),#000000或者#f00
  * @returns {String} 反色的颜色值 #000000 格式
  */
@@ -288,7 +291,7 @@ export function getStyle(domObj) {
 //  #endregion
 
 /**
- * 对象处理
+ * 对象合并和拷贝
  * @module utils.object
  */
 // #region object
@@ -468,7 +471,7 @@ export function equals(x, y, propertys = '') {
 //  #endregion
 
 /**
- * 数字处理
+ * 数字toFixed
  * @module utils.number
  */
 // #region number
