@@ -203,7 +203,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>html字符串</p></td>
         </tr>
 
     
@@ -266,6 +266,10 @@
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    <p>去html标签的字符串</p>
+</div>
+
 
 
 <dl>
@@ -291,7 +295,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".strBreak">strBreak<span class="signature">(txt, lineLength, lineBreak)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".strBreak">strBreak<span class="signature">(txt [, lineLength] [, lineBreak])</span><span class="type-signature"> &rarr; {String}</span></h4>
     
     
 </dt>
@@ -322,7 +326,11 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -348,7 +356,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last"><p>文本</p></td>
@@ -372,10 +392,26 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>换行长度</p></td>
+            
+                <td class="default">
+                
+                    10
+                
+                </td>
+            
+
+            <td class="description last"><p>换行长度，0：表示不处理</p></td>
         </tr>
 
     
@@ -396,7 +432,23 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    "\r\n"
+                
+                </td>
             
 
             <td class="description last"><p>换行符</p></td>
@@ -459,6 +511,30 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>换行处理过的字符串</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>

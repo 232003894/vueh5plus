@@ -15,10 +15,10 @@ types.forEach((name, i) => {
 
 /**
  * 获取类型
- * @param {*} obj
- * @returns {String}
+ * @param {*} value
+ * @returns {String} 类型名称
  */
-export function getType(obj) {
+export function getType(value) {
   /**
    * ECMA-262 规范定义了Object.prototype.toString的行为：
    当调用 toString 方法，采用如下步骤：
@@ -30,13 +30,13 @@ export function getType(obj) {
 
    利用这个方法，再配合call，我们可以取得任何对象的内部属性[[Class]]，然后把类型检测转化为字符串比较，以达到我们的目的。
    */
-  return obj == null ? String(obj) : class2type[{}.toString.call(obj)] || 'object'
+  return value == null ? String(value) : class2type[{}.toString.call(value)] || 'object'
 }
 
 /**
  * 判定是否为字符串
  * @param {*} value
- * @returns {boolean} 是否为字符串
+ * @returns {Boolean} 是否为字符串
  */
 export function isString(value) {
   return getType(value) === 'string'
@@ -45,7 +45,7 @@ export function isString(value) {
 /**
  * 判定是否为数值
  * @param {*} value
- * @returns {boolean} 是否为数值
+ * @returns {Boolean} 是否为数值
  */
 export function isNumber(value) {
   return getType(value) === 'number'
@@ -54,16 +54,16 @@ export function isNumber(value) {
 /**
  * 判定是否为布尔
  * @param {*} value
- * @returns {boolean} 是否为布尔
+ * @returns {Boolean} 是否为布尔
  */
 export function isBoolean(value) {
-  return getType(value) === 'boolean'
+  return getType(value) === 'Boolean'
 }
 
 /**
  * 判定是否为正则
  * @param {*} value
- * @returns {boolean} 是否为正则
+ * @returns {Boolean} 是否为正则
  */
 export function isRegExp(value) {
   return getType(value) === 'regexp'
@@ -72,7 +72,7 @@ export function isRegExp(value) {
 /**
  * 判定是否为一个函数
  * @param {*} value
- * @returns {boolean} 是否为一个函数
+ * @returns {Boolean} 是否为一个函数
  */
 export function isFunction(value) {
   return getType(value) === 'function'
@@ -81,7 +81,7 @@ export function isFunction(value) {
 /**
  * 判定是否为日期
  * @param {*} value
- * @returns {boolean} 是否为日期
+ * @returns {Boolean} 是否为日期
  */
 export function isDate(value) {
   return getType(value) === 'date'
@@ -90,7 +90,7 @@ export function isDate(value) {
 /**
  * 判定是否为数组
  * @param {*} value
- * @returns {boolean} 是否为数组
+ * @returns {Boolean} 是否为数组
  */
 export function isArray(value) {
   return getType(value) === 'array'
@@ -98,36 +98,37 @@ export function isArray(value) {
 
 /**
  * 判定是否为一个window对象
- * @param {*} obj
- * @returns {boolean} 是否为一个window对象
+ * @param {*} value
+ * @returns {Boolean} 是否为一个window对象
  */
-export function isWindow(obj) {
-  return obj != null && obj === obj.window
+export function isWindow(value) {
+  return value != null && value === value.window
 }
 
 /**
  * 判定是否为一个对象
- * @param {*} obj
- * @returns {boolean} 是否为一个对象
+ * @param {*} value
+ * @returns {Boolean} 是否为一个对象
  */
-export function isObject(obj) {
-  return getType(obj) === 'object'
+export function isObject(value) {
+  return getType(value) === 'object'
 }
 
 /**
  * 判定是否为一个纯净的JS对象, 不能为window, 任何类(包括自定义类)的实例,元素节点,文本节点
- * @param {*} obj
- * @returns {boolean} 是否为一个纯净的JS对象
+ * @param {*} value
+ * @returns {Boolean} 是否为一个纯净的JS对象
  */
-export function isPlainObject(obj) {
-  return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) === Object.prototype
+export function isPlainObject(value) {
+  return isObject(value) && !isWindow(value) && Object.getPrototypeOf(value) === Object.prototype
 }
 
 /**
  * 验证URL
- * @param {String} str_url 
+ * @param {String} str - 待验证的字符串 
+ * @returns {Boolean} 是否为URL格式
  */
-export function isURL(str_url) {
+export function isURL(str) {
   // 验证url  
   // var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
   var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
@@ -141,7 +142,7 @@ export function isURL(str_url) {
     + "((/?)|" // a slash isn't required if there is no file name  
     + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
   var re = new RegExp(strRegex);
-  return re.test(str_url);
+  return re.test(str);
 }
 //  #endregion
 
@@ -152,9 +153,10 @@ export function isURL(str_url) {
 // #region txt
 /**
  * 文本自动换行
- * @param {String} txt 文本
- * @param {Number} lineLength 换行长度
- * @param {String} lineBreak 换行符
+ * @param {String} txt - 文本
+ * @param {Number} [lineLength=10] - 换行长度，0：表示不处理
+ * @param {String} [lineBreak="\r\n"] - 换行符
+ * @returns {String} 换行处理过的字符串
  */
 export function strBreak(txt = "", lineLength = 10, lineBreak = "\r\n") {
   if (!txt) {
@@ -184,8 +186,8 @@ export function strBreak(txt = "", lineLength = 10, lineBreak = "\r\n") {
 
 /**
  * 去html标签
- * @param {String} html
- * @returns {String}
+ * @param {String} html - html字符串
+ * @returns {String} 去html标签的字符串
  */
 export function delHtmlTag(html) {
   var doc = ''
@@ -203,8 +205,9 @@ export function delHtmlTag(html) {
  */
 // #region color
 /**
- * 计算颜色值的反色，colorStr格式为：rgb(0,0,0),#000000或者#f00
+ * 计算颜色值的，colorStr格式为：rgb(0,0,0),#000000或者#f00
  * @param {String} colorStr colorStr格式为：rgb(0,0,0),#000000或者#f00
+ * @returns {String} 反色的颜色值 #000000 格式
  */
 export function reversalColor(colorStr) {
   var sixNumReg = /^#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})*$/gi;
@@ -253,7 +256,8 @@ export function reversalColor(colorStr) {
 
 /**
  * 获取随机颜色
- * @param {Boolean} useRgb 
+ * @param {Boolean} [useRgb=false] 是否使用rgb格式 
+ * @returns {String} 颜色值 #000000 或 rgb(0,0,0)
  */
 export function randomColor(useRgb = false) {
   let _color = ''
@@ -275,8 +279,8 @@ export function randomColor(useRgb = false) {
 
 /**
  * 获取dom元素的style
- * @param {*} domObj
- * @returns {Object} style
+ * @param {Dom} domObj - document文档对象，不是id
+ * @returns {Object} style对象
  */
 export function getStyle(domObj) {
   return domObj.currentStyle != null ? domObj.currentStyle : window.getComputedStyle(domObj, false)
@@ -297,6 +301,30 @@ export function getStyle(domObj) {
  * target : 对象扩展。这将接收新的属性。
  * object1 -- objectN : 一个对象，它包含额外的属性合并到第一个参数。
  * @returns {Object} 返回 target
+ * @example
+ * // 多个对象拷贝
+ * // {"title":"sss","obj":{"sub":"abc","test":"sub123"}}
+ * this.plus.mix({title:'dd',obj:{sub:'abc',subtitle:'sub'}},{title:'sss',obj:{sub:'abc',test:'sub123'}})
+ * 
+ * // 多个对象深度拷贝
+ * // {"title":"sss","obj":{"sub":"abc","subtitle":"sub","test":"sub123"}}
+ * this.plus.mix(true,{title:'dd',id:123,obj:{sub:'abc',subtitle:'sub'}},{title:'sss',id1:123,obj:{sub:'abc',test:'sub123'}})
+ * 
+ * // 多个数组拷贝
+ * // [4,{"sub":"abc","test":"sub123"},3,5]
+ * this.plus.mix([1,{sub:'abc',subtitle:'sub'},2,5],[4,{sub:'abc',test:'sub123'},3])
+ * 
+ * // 多个数组深度拷贝
+ * // [4,{"sub":"abc","subtitle":"sub","test":"sub123"},3,5]
+ * this.plus.mix(true,[1,{sub:'abc',subtitle:'sub'},2,5],[4,{sub:'abc',test:'sub123'},3])
+ * 
+ * // 对象拷贝到数组中
+ * // [1, 1, 2, title: "ddd", id: 123]
+ * this.plus.mix([1,1,2],{title:'dd',id:123})
+ * 
+ * // 数组拷贝到对象中
+ * // Object {0: 1, 1: 1, 2: 2, title: "dd", id: 123}
+ * this.plus.mix({title:'dd',id:123},[1,1,2])
  */
 export function mix() {
   var options
@@ -310,7 +338,7 @@ export function mix() {
   var length = arguments.length
   var deep = false
   // 如果第一个参数为布尔,判定是否深拷贝
-  if (typeof target === 'boolean') {
+  if (typeof target === 'Boolean') {
     deep = target
     target = arguments[1] || {}
     i++
@@ -362,11 +390,11 @@ export function mix() {
 
 /**
  * 比较对象是否相等
- * @param {Object} x
- * @param {Object} y
- * @param {String} propertys 设置对比的属性,多属性用逗号分隔,非必填
+ * @param {Object} x - 对象x
+ * @param {Object} y - 对象y
+ * @param {String} [propertys=''] 设置对比的属性,多属性用逗号分隔
  */
-export function equals(x, y, propertys) {
+export function equals(x, y, propertys = '') {
   // If both x and y are null or undefined and exactly the same
   if (x === y) {
     return true
@@ -448,10 +476,10 @@ import accounting from 'accounting'
 
 /**
  * 把 Number 四舍五入为指定小数位数的数字
- * @param {Number} value
- * @param {Number} precision
- * @param {Boolean} toStr
- * @returns {*} 四舍五入后的数字或字符串
+ * @param {Number} value 
+ * @param {Number} [precision=0] - 保留位数
+ * @param {Boolean} [toStr=false] - 是否输出为字符串格式，false则输出数值
+ * @returns {Number|String} 四舍五入后的数字或字符串
  */
 export function toFixed(value, precision = 0, toStr = false) {
   let fixed = accounting.toFixed(value, precision) * 1

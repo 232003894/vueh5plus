@@ -192,7 +192,7 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">Dom</span>
 
 
 
@@ -203,7 +203,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>document文档对象，不是id</p></td>
         </tr>
 
     
@@ -267,7 +267,7 @@
     
             
 <div class="param-desc">
-    <p>style</p>
+    <p>style对象</p>
 </div>
 
 
@@ -295,7 +295,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".randomColor">randomColor<span class="signature">(useRgb)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".randomColor">randomColor<span class="signature">( [useRgb])</span><span class="type-signature"> &rarr; {String}</span></h4>
     
     
 </dt>
@@ -326,7 +326,11 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -352,10 +356,26 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"></td>
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>是否使用rgb格式</p></td>
         </tr>
 
     
@@ -415,6 +435,30 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>颜色值 #000000 或 rgb(0,0,0)</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -423,7 +467,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".reversalColor">reversalColor<span class="signature">(colorStr)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".reversalColor">reversalColor<span class="signature">(colorStr)</span><span class="type-signature"> &rarr; {String}</span></h4>
     
     
 </dt>
@@ -431,7 +475,7 @@
 
     
     <div class="description">
-        <p>计算颜色值的反色，colorStr格式为：rgb(0,0,0),#000000或者#f00</p>
+        <p>计算颜色值的，colorStr格式为：rgb(0,0,0),#000000或者#f00</p>
     </div>
     
 
@@ -543,6 +587,30 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>反色的颜色值 #000000 格式</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
