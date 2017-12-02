@@ -425,6 +425,9 @@ export function getWin(w) {
 
 /**
  * 获取home窗体
+ * @returns {window|WebviewObject} 窗体对象
+ * @example
+ * this.plus.getHomeWin()
  */
 export function getHomeWin() {
   if (window.plus) {
@@ -444,6 +447,7 @@ export function goHome() {
 /**
  * 是否主页
  * @param {String|window|WebviewObject} w 
+ * @returns {Boolean} 是不是主页
  */
 export function isHome(w) {
   w = getWin(w)
@@ -459,7 +463,8 @@ export function isHome(w) {
 
 /**
  * 是否顶层窗口
- * @param {String|window|WebviewObject} w 
+ * @param {String|window|WebviewObject} w
+ * @returns {Boolean} 是不是顶层窗口
  */
 export function isTop(w) {
   w = getWin(w)
@@ -476,9 +481,52 @@ export function isTop(w) {
 
 /**
  * 创建并打开侧滑窗口
- * @param {String} url url
- * @param {String} id 窗口id 
- * @param {Object} opts {loading:true,ani:{duration: 300,aniShow: 'slide-in-right'},ext:{},style:{scalable:false,bounce:"",plusrequire:"ahead",softinputMode:"adjustPan"}}
+ * @param {String} url - 新窗口加载的HTML页面地址
+ * @param {String} [id] - 新窗口的标识
+ * @param {Object} [opts] - 参数
+ * @param {Boolean} [opts.loading=true] - 是否显示loading等待效果
+ * @param {Object} [opts.ani] - 显示窗口的动画
+ * @param {String} [opts.ani.aniShow='slide-in-right'] - 显示窗口的动画效果
+ * @param {Number} [opts.ani.duration=300] - 显示窗口动画的持续时间
+ * @param {JSON} [opts.ext] - 创建窗口的额外扩展参数，设置扩展参数后可以直接通过窗口对象的点（“.”）操作符获取扩展参数属性值。
+ * @param {Object} [opts.style] - 创建窗口的样式（如窗口宽、高、位置等信息），参考{@link http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewStyles HTML5+ API}。
+ * @returns {window|WebviewObject} 侧滑窗体对象
+ * @example <caption>左侧滑菜单</caption>
+ * this.plus.open('index.html', "menuLeft", {
+ *   ani: { aniShow: "slide-in-left" },
+ *   style: {
+ *     right: "30%",
+ *     width: "70%",
+ *     popGesture: "none"
+ *   }
+ * });
+ * @example <caption>右侧滑菜单</caption>
+ * this.plus.open('index.html', "menuRight", {
+ *   ani: { aniShow: "slide-in-right" },
+ *   style: {
+ *     left: "30%",
+ *     width: "70%",
+ *     popGesture: "none"
+ *   }
+ * });
+ * @example <caption>底侧滑菜单</caption>
+ * this.plus.open('index.html', "menuBottom", {
+ *   ani: { aniShow: "slide-in-bottom" },
+ *   style: {
+ *     height: "30%",
+ *     top: "70%",
+ *     popGesture: "none"
+ *   }
+ * });
+ * @example <caption>顶侧滑菜单</caption>
+ * this.plus.open('index.html', "menuTop", {
+ *   ani: { aniShow: "slide-in-top" },
+ *   style: {
+ *     height: "30%",
+ *     bottom: "70%",
+ *     popGesture: "none"
+ *   }
+ * });
  */
 export function menu(url = '', id = '', opts = { loading: true, ext: {}, ani: {}, style: {} }) {
   if (window.plus) {
@@ -492,6 +540,9 @@ export function menu(url = '', id = '', opts = { loading: true, ext: {}, ani: {}
       w.setStyle({ mask: "none" });
     }, false);
     w.setStyle({ mask: "rgba(0,0,0,0.5)" });
+    return side
+  } else {
+    return null
   }
 }
 
