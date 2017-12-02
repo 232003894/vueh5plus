@@ -291,7 +291,7 @@ export function getStyle(domObj) {
 //  #endregion
 
 /**
- * 对象合并和拷贝
+ * 对象对比和合并、拷贝
  * @module utils.object
  */
 // #region object
