@@ -1,6 +1,6 @@
-# H5+ for Vue.js
+# vue-h5-plus
 
-> `H5Plus Extend for Vue.js，H5+和Vue.js的结合`
+> `H5Plus Extend for Vue.js`
 
 
 ## 安装
