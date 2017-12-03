@@ -71,7 +71,7 @@ export default {
 import Vue from 'vue'
 import plus from 'vue-h5-plus'
 Vue.use(plus, {
-  // 全局定义指定hbuild的错误页地址
+  // 全局指定hbuild的错误页地址
   errorPage: '/error.html',
   // 重写库中的toast方法
   toast(msg){
