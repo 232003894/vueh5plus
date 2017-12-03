@@ -29,7 +29,7 @@ Vue.use(plus)
 `用于监听自定义的事件广播`
 
 #### 实例扩展plus对象
-> `实例对象中扩展plus属性对象，plus中有许多静态方法，可以在Modules中查看`[Doc](https://232003894.github.io/vueh5plus/index.html)
+> `实例对象中扩展plus属性对象，plus中有许多静态方法，可以在Modules中查看` [文档](https://232003894.github.io/vueh5plus/index.html)
 
 ### 示例
 
