@@ -83,3 +83,7 @@ Vue.use(plus, {
   }
 })
 ```
+
+
+
+## [文档](https://232003894.github.io/vueh5plus/index.html)
