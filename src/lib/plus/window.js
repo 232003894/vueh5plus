@@ -1,4 +1,5 @@
 /**
+ * 管理应用窗口界面，实现窗口的逻辑控制管理操作
  * @module window
  */
 
@@ -82,8 +83,11 @@ const defaultHide = {
 // #region 公共方法
 
 /**
- * 设置自定义错误页面，必须是本地路径（Hbuilder的）
- * @param {String} url 
+ * 设置自定义错误页面
+ * @param {String} url - 错误页面路径，必须是本地路径（Hbuilder的）
+ * @example <caption>设置错误页</caption>
+ * // 路径，必须是本地路径（Hbuilder项目的）
+ * this.plus.errorPage('/error.html')
  */
 export function errorPage(url) {
   defaultWin.errorPage = url
@@ -94,14 +98,28 @@ export function errorPage(url) {
 
 /**
  * 创建新窗口
- * @param {String} url url
- * @param {String} id 窗口id 
- * @param {Object} opts {ext:{},style:{scalable:false,bounce:"",plusrequire:"ahead",softinputMode:"adjustPan"}}
+ * @param {String} url - 新窗口加载的HTML页面地址
+ * @param {String} [id] - 新窗口的标识
+ * @param {Object} [opts] - 参数
+ * @param {JSON} [opts.ext] - 创建窗口的额外扩展参数，设置扩展参数后可以直接通过窗口对象的点（“.”）操作符获取扩展参数属性值。
+ * @param {Object} [opts.style] - 创建窗口的样式（如窗口宽、高、位置等信息），参考{@link http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewStyles HTML5+ API}。
+ * @returns {window|WebviewObject} 窗体对象
+ * @example
+ * this.plus.create('login.html')
  */
-export function create(url = '', id = '', opts) {
+export function create(url = '', id = '', opts = { ext: {}, style: {} }) {
   let webview = null
   if (!url) {
     return webview
+  }
+  if (!opts) {
+    opts = { ext: {}, style: {} }
+  }
+  if (opts.ext) {
+    opts.ext = {}
+  }
+  if (opts.style) {
+    opts.style = {}
   }
   if (window.plus) {
     if (!id) {
@@ -120,17 +138,32 @@ export function create(url = '', id = '', opts) {
 
 /**
  * 显示窗体
- * @param {String|window|WebviewObject} w 
- * @param {Object} opts {loading:true,ani:{duration: 300,aniShow: 'slide-in-right'}}
+ * @param {String|window|WebviewObject} w - 窗体对象或窗体id
+ * @param {Object} [opts] - 显示参数
+ * @param {Boolean} [opts.loading=true] - 是否显示loading等待效果
+ * @param {Object} [opts.ani] - 显示窗口的动画
+ * @param {String} [opts.ani.aniShow='slide-in-right'] - 显示窗口的动画效果
+ * @param {Number} [opts.ani.duration=300] - 显示窗口动画的持续时间
+ * @example
+ * // 根据id显示
+ * this.plus.show('login')
  */
-export function show(w, opts = {}) {
+export function show(w, opts = { loading: true, ani: {} }) {
   // export function show(w, opts = {}, showedCB = function () { }) {
   w = getWin(w)
   if (!w) {
     console.error('[show方法] 类型{String|window|WebviewObject}参数w不能为空!')
     return
   }
-  opts.loading = !!opts.loading
+  if (!opts) {
+    opts = { loading: true, ani: {} }
+  }
+  if (opts.ani) {
+    opts.ani = {}
+  }
+  if (!utils.isBoolean(opts.loading)) {
+    opts.loading = true
+  }
   if (window.plus) {
     let isVisible = w.isVisible()
     let _Opt = utils.mix({}, defaultShow, opts.ani)
@@ -214,8 +247,13 @@ export function show(w, opts = {}) {
 
 /**
  * 隐藏窗体
- * @param {String|window|WebviewObject} w 
- * @param {*} hideOpts 
+ * @param {String|window|WebviewObject} w - 窗体对象或窗体id
+ * @param {Object} [hideOpts] - 隐藏参数
+ * @param {String} [hideOpts.aniHide='none'|'auto'] - 隐藏窗口的动画效果,非显示栈顶的窗口的默认值为'none'
+ * @param {Number} [hideOpts.duration=300] - 隐藏窗口动画的持续时间
+ * @example
+ * // 根据id隐藏
+ * this.plus.hide('login')
  */
 export function hide(w, hideOpts = {}) {
   w = getWin(w)
@@ -246,8 +284,13 @@ export function hide(w, hideOpts = {}) {
 
 /**
  * 关闭窗体
- * @param {String|window|WebviewObject} w 
- * @param {*} closeOpts 
+ * @param {String|window|WebviewObject} w - 窗体对象或窗体id
+ * @param {*} [closeOpts] - 关闭参数
+ * @param {String} [closeOpts.aniHide='none'|'auto'] - 关闭窗口的动画效果,非显示栈顶的窗口的默认值为'none'
+ * @param {Number} [closeOpts.duration=300] - 关闭窗口动画的持续时间
+ * @example
+ * // 根据id关闭
+ * this.plus.hide('login')
  */
 export function close(w, closeOpts = {}) {
   w = getWin(w)
@@ -281,9 +324,22 @@ export function close(w, closeOpts = {}) {
 
 /**
  * 创建并打开新窗口
- * @param {String} url url
- * @param {String} id 窗口id 
- * @param {Object} opts {loading:true,ani:{duration: 300,aniShow: 'slide-in-right'},ext:{},style:{scalable:false,bounce:"",plusrequire:"ahead",softinputMode:"adjustPan"}}
+ * @param {String} url - 新窗口加载的HTML页面地址
+ * @param {String} [id] - 新窗口的标识
+ * @param {Object} [opts] - 参数
+ * @param {Boolean} [opts.loading=true] - 是否显示loading等待效果
+ * @param {Object} [opts.ani] - 显示窗口的动画
+ * @param {String} [opts.ani.aniShow='slide-in-right'] - 显示窗口的动画效果
+ * @param {Number} [opts.ani.duration=300] - 显示窗口动画的持续时间
+ * @param {JSON} [opts.ext] - 创建窗口的额外扩展参数，设置扩展参数后可以直接通过窗口对象的点（“.”）操作符获取扩展参数属性值。
+ * @param {Object} [opts.style] - 创建窗口的样式（如窗口宽、高、位置等信息），参考{@link http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewStyles HTML5+ API}。
+ * @returns {window|WebviewObject} 窗体对象
+ * @example
+ * this.plus.open('login.html', "login", {
+ *   ext: {
+ *     uid: 121
+ *   }
+ * });
  */
 export function open(url = '', id = '', opts = { loading: true, ext: {}, ani: {}, style: {} }) {
   if (!url) {
@@ -322,7 +378,9 @@ export function open(url = '', id = '', opts = { loading: true, ext: {}, ani: {}
 
 /**
  * 用浏览器打开url
- * @param {String} url url
+ * @param {String} url - 页面地址
+ * @example
+ * this.plus.openBrowser('http://www.baidu.com');
  */
 export function openBrowser(url) {
   if (window.plus) {
@@ -334,7 +392,13 @@ export function openBrowser(url) {
 
 /**
  * 获取窗体
- * @param {String|window|WebviewObject} w 
+ * @param {String|window|WebviewObject} w - 窗体对象或窗体id
+ * @returns {window|WebviewObject} 窗体对象
+ * @example
+ * // 取得当前窗体
+ * this.plus.getWin()
+ * // 获取id为‘login’的窗体
+ * this.plus.getWin('login')
  */
 export function getWin(w) {
   let win = null
@@ -365,6 +429,9 @@ export function getWin(w) {
 
 /**
  * 获取home窗体
+ * @returns {window|WebviewObject} 窗体对象
+ * @example
+ * this.plus.getHomeWin()
  */
 export function getHomeWin() {
   if (window.plus) {
@@ -384,6 +451,7 @@ export function goHome() {
 /**
  * 是否主页
  * @param {String|window|WebviewObject} w 
+ * @returns {Boolean} 是不是主页
  */
 export function isHome(w) {
   w = getWin(w)
@@ -399,7 +467,8 @@ export function isHome(w) {
 
 /**
  * 是否顶层窗口
- * @param {String|window|WebviewObject} w 
+ * @param {String|window|WebviewObject} w
+ * @returns {Boolean} 是不是顶层窗口
  */
 export function isTop(w) {
   w = getWin(w)
@@ -416,9 +485,52 @@ export function isTop(w) {
 
 /**
  * 创建并打开侧滑窗口
- * @param {String} url url
- * @param {String} id 窗口id 
- * @param {Object} opts {loading:true,ani:{duration: 300,aniShow: 'slide-in-right'},ext:{},style:{scalable:false,bounce:"",plusrequire:"ahead",softinputMode:"adjustPan"}}
+ * @param {String} url - 新窗口加载的HTML页面地址
+ * @param {String} [id] - 新窗口的标识
+ * @param {Object} [opts] - 参数
+ * @param {Boolean} [opts.loading=true] - 是否显示loading等待效果
+ * @param {Object} [opts.ani] - 显示窗口的动画
+ * @param {String} [opts.ani.aniShow='slide-in-right'] - 显示窗口的动画效果
+ * @param {Number} [opts.ani.duration=300] - 显示窗口动画的持续时间
+ * @param {JSON} [opts.ext] - 创建窗口的额外扩展参数，设置扩展参数后可以直接通过窗口对象的点（“.”）操作符获取扩展参数属性值。
+ * @param {Object} [opts.style] - 创建窗口的样式（如窗口宽、高、位置等信息），参考{@link http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewStyles HTML5+ API}。
+ * @returns {window|WebviewObject} 侧滑窗体对象
+ * @example <caption>左侧滑菜单</caption>
+ * this.plus.open('index.html', "menuLeft", {
+ *   ani: { aniShow: "slide-in-left" },
+ *   style: {
+ *     right: "30%",
+ *     width: "70%",
+ *     popGesture: "none"
+ *   }
+ * });
+ * @example <caption>右侧滑菜单</caption>
+ * this.plus.open('index.html', "menuRight", {
+ *   ani: { aniShow: "slide-in-right" },
+ *   style: {
+ *     left: "30%",
+ *     width: "70%",
+ *     popGesture: "none"
+ *   }
+ * });
+ * @example <caption>底侧滑菜单</caption>
+ * this.plus.open('index.html', "menuBottom", {
+ *   ani: { aniShow: "slide-in-bottom" },
+ *   style: {
+ *     height: "30%",
+ *     top: "70%",
+ *     popGesture: "none"
+ *   }
+ * });
+ * @example <caption>顶侧滑菜单</caption>
+ * this.plus.open('index.html', "menuTop", {
+ *   ani: { aniShow: "slide-in-top" },
+ *   style: {
+ *     height: "30%",
+ *     bottom: "70%",
+ *     popGesture: "none"
+ *   }
+ * });
  */
 export function menu(url = '', id = '', opts = { loading: true, ext: {}, ani: {}, style: {} }) {
   if (window.plus) {
@@ -432,6 +544,9 @@ export function menu(url = '', id = '', opts = { loading: true, ext: {}, ani: {}
       w.setStyle({ mask: "none" });
     }, false);
     w.setStyle({ mask: "rgba(0,0,0,0.5)" });
+    return side
+  } else {
+    return null
   }
 }
 

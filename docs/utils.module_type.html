@@ -143,7 +143,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".getType">getType<span class="signature">(obj)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id=".getType">getType(value)</h4>
     
     
 </dt>
@@ -186,13 +186,13 @@
 
         <tr>
             
-                <td class="name"><code>obj</code></td>
+                <td class="name"><code>value</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -266,6 +266,10 @@
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    <p>类型名称</p>
+</div>
+
 
 
 <dl>
@@ -291,7 +295,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isArray">isArray<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isArray">isArray(value)</h4>
     
     
 </dt>
@@ -340,7 +344,7 @@
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -426,7 +430,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Boolean</span>
 
 
 
@@ -443,7 +447,159 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isDate">isDate<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isBoolean">isBoolean(value)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>判定是否为布尔</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>是否为布尔</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            ﻿
+<hr>
+<dt>
+    <h4 class="name" id=".isDate">isDate(value)</h4>
     
     
 </dt>
@@ -492,7 +648,7 @@
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -578,7 +734,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Boolean</span>
 
 
 
@@ -595,7 +751,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isFunction">isFunction<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isFunction">isFunction(value)</h4>
     
     
 </dt>
@@ -644,7 +800,7 @@
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -730,7 +886,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Boolean</span>
 
 
 
@@ -747,7 +903,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isNumber">isNumber<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isNumber">isNumber(value)</h4>
     
     
 </dt>
@@ -796,7 +952,7 @@
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -882,7 +1038,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Boolean</span>
 
 
 
@@ -899,7 +1055,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isObject">isObject<span class="signature">(obj)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isObject">isObject(value)</h4>
     
     
 </dt>
@@ -942,13 +1098,13 @@
 
         <tr>
             
-                <td class="name"><code>obj</code></td>
+                <td class="name"><code>value</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -1034,7 +1190,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Boolean</span>
 
 
 
@@ -1051,7 +1207,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isPlainObject">isPlainObject<span class="signature">(obj)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isPlainObject">isPlainObject(value)</h4>
     
     
 </dt>
@@ -1094,13 +1250,13 @@
 
         <tr>
             
-                <td class="name"><code>obj</code></td>
+                <td class="name"><code>value</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -1186,7 +1342,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Boolean</span>
 
 
 
@@ -1203,7 +1359,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isRegExp">isRegExp<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isRegExp">isRegExp(value)</h4>
     
     
 </dt>
@@ -1252,7 +1408,7 @@
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -1338,7 +1494,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Boolean</span>
 
 
 
@@ -1355,7 +1511,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isString">isString<span class="signature">(value)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isString">isString(value)</h4>
     
     
 </dt>
@@ -1404,7 +1560,7 @@
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -1490,7 +1646,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Boolean</span>
 
 
 
@@ -1507,7 +1663,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isURL">isURL<span class="signature">(str_url)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".isURL">isURL(str)</h4>
     
     
 </dt>
@@ -1550,7 +1706,7 @@
 
         <tr>
             
-                <td class="name"><code>str_url</code></td>
+                <td class="name"><code>str</code></td>
             
 
             <td class="type">
@@ -1567,7 +1723,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>待验证的字符串</p></td>
         </tr>
 
     
@@ -1627,6 +1783,30 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>是否为URL格式</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1635,7 +1815,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isWindow">isWindow<span class="signature">(obj)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isWindow">isWindow(value)</h4>
     
     
 </dt>
@@ -1678,13 +1858,13 @@
 
         <tr>
             
-                <td class="name"><code>obj</code></td>
+                <td class="name"><code>value</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -1770,7 +1950,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Boolean</span>
 
 
 
@@ -1833,7 +2013,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Fri Dec 1st 2017
+		on Sun Dec 3rd 2017
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

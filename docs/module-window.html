@@ -77,6 +77,8 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>管理应用窗口界面，实现窗口的逻辑控制管理操作</p></div>
+        
 
         
 <dl class="details">
@@ -141,7 +143,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".close">close<span class="signature">(w, closeOpts)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".close">close(w [, closeOpts])</h4>
     
     
 </dt>
@@ -171,6 +173,8 @@
 
         <th>Type</th>
 
+        
+        <th>Argument</th>
         
 
         
@@ -204,10 +208,18 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>窗体对象或窗体id</p></td>
         </tr>
 
     
@@ -228,10 +240,130 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>关闭参数</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>aniHide</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'none'|'auto'
+                
+                </td>
+            
+
+            <td class="description last"><p>关闭窗口的动画效果,非显示栈顶的窗口的默认值为'none'</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    300
+                
+                </td>
+            
+
+            <td class="description last"><p>关闭窗口动画的持续时间</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -293,13 +425,21 @@
     
 
     
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">// 根据id关闭
+this.plus.hide(&#x27;login&#x27;)</pre>
+
+
+    
 </dd>
 
         
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".create">create<span class="signature">(url, id, opts)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".create">create(url [, id] [, opts])</h4>
     
     
 </dt>
@@ -330,6 +470,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -356,10 +498,18 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>url</p></td>
+            <td class="description last"><p>新窗口加载的HTML页面地址</p></td>
         </tr>
 
     
@@ -380,10 +530,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>窗口id</p></td>
+            <td class="description last"><p>新窗口的标识</p></td>
         </tr>
 
     
@@ -404,10 +564,116 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>{ext:{},style:{scalable:false,bounce:&quot;&quot;,plusrequire:&quot;ahead&quot;,softinputMode:&quot;adjustPan&quot;}}</p></td>
+            <td class="description last"><p>参数</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ext</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">JSON</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>创建窗口的额外扩展参数，设置扩展参数后可以直接通过窗口对象的点（“.”）操作符获取扩展参数属性值。</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>style</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>创建窗口的样式（如窗口宽、高、位置等信息），参考<a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewStyles">HTML5+ API</a>。</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -467,6 +733,40 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>窗体对象</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">window</span>
+|
+
+<span class="param-type">WebviewObject</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">this.plus.create(&#x27;login.html&#x27;)</pre>
+
 
     
 </dd>
@@ -475,7 +775,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".errorPage">errorPage<span class="signature">(url)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".errorPage">errorPage(url)</h4>
     
     
 </dt>
@@ -483,7 +783,7 @@
 
     
     <div class="description">
-        <p>设置自定义错误页面，必须是本地路径（Hbuilder的）</p>
+        <p>设置自定义错误页面</p>
     </div>
     
 
@@ -535,7 +835,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>错误页面路径，必须是本地路径（Hbuilder的）</p></td>
         </tr>
 
     
@@ -597,13 +897,23 @@
     
 
     
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+        <p class="code-caption">设置错误页</p>
+    
+    <pre class="sunlight-highlight-javascript">// 路径，必须是本地路径（Hbuilder项目的）
+this.plus.errorPage(&#x27;/error.html&#x27;)</pre>
+
+
+    
 </dd>
 
         
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".getHomeWin">getHomeWin<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getHomeWin">getHomeWin()</h4>
     
     
 </dt>
@@ -673,6 +983,40 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>窗体对象</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">window</span>
+|
+
+<span class="param-type">WebviewObject</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">this.plus.getHomeWin()</pre>
+
 
     
 </dd>
@@ -681,7 +1025,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".getWin">getWin<span class="signature">(w)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getWin">getWin(w)</h4>
     
     
 </dt>
@@ -747,7 +1091,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>窗体对象或窗体id</p></td>
         </tr>
 
     
@@ -807,6 +1151,43 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>窗体对象</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">window</span>
+|
+
+<span class="param-type">WebviewObject</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">// 取得当前窗体
+this.plus.getWin()
+// 获取id为‘login’的窗体
+this.plus.getWin(&#x27;login&#x27;)</pre>
+
 
     
 </dd>
@@ -815,7 +1196,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".goHome">goHome<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".goHome">goHome()</h4>
     
     
 </dt>
@@ -893,7 +1274,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".hide">hide<span class="signature">(w, hideOpts)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".hide">hide(w [, hideOpts])</h4>
     
     
 </dt>
@@ -923,6 +1304,8 @@
 
         <th>Type</th>
 
+        
+        <th>Argument</th>
         
 
         
@@ -956,10 +1339,18 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>窗体对象或窗体id</p></td>
         </tr>
 
     
@@ -972,7 +1363,7 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">Object</span>
 
 
 
@@ -980,10 +1371,130 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>隐藏参数</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>aniHide</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'none'|'auto'
+                
+                </td>
+            
+
+            <td class="description last"><p>隐藏窗口的动画效果,非显示栈顶的窗口的默认值为'none'</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    300
+                
+                </td>
+            
+
+            <td class="description last"><p>隐藏窗口动画的持续时间</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -1045,13 +1556,21 @@
     
 
     
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">// 根据id隐藏
+this.plus.hide(&#x27;login&#x27;)</pre>
+
+
+    
 </dd>
 
         
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isHome">isHome<span class="signature">(w)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".isHome">isHome(w)</h4>
     
     
 </dt>
@@ -1177,6 +1696,30 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>是不是主页</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1185,7 +1728,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".isTop">isTop<span class="signature">(w)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".isTop">isTop(w)</h4>
     
     
 </dt>
@@ -1311,6 +1854,30 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>是不是顶层窗口</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1319,7 +1886,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".menu">menu<span class="signature">(url, id, opts)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".menu">menu(url [, id] [, opts])</h4>
     
     
 </dt>
@@ -1350,6 +1917,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -1376,10 +1945,18 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>url</p></td>
+            <td class="description last"><p>新窗口加载的HTML页面地址</p></td>
         </tr>
 
     
@@ -1400,10 +1977,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>窗口id</p></td>
+            <td class="description last"><p>新窗口的标识</p></td>
         </tr>
 
     
@@ -1424,10 +2011,314 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>{loading:true,ani:{duration: 300,aniShow: 'slide-in-right'},ext:{},style:{scalable:false,bounce:&quot;&quot;,plusrequire:&quot;ahead&quot;,softinputMode:&quot;adjustPan&quot;}}</p></td>
+            <td class="description last"><p>参数</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>loading</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>是否显示loading等待效果</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ani</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>显示窗口的动画</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>aniShow</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'slide-in-right'
+                
+                </td>
+            
+
+            <td class="description last"><p>显示窗口的动画效果</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    300
+                
+                </td>
+            
+
+            <td class="description last"><p>显示窗口动画的持续时间</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ext</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">JSON</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>创建窗口的额外扩展参数，设置扩展参数后可以直接通过窗口对象的点（“.”）操作符获取扩展参数属性值。</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>style</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>创建窗口的样式（如窗口宽、高、位置等信息），参考<a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewStyles">HTML5+ API</a>。</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -1487,6 +2378,82 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>侧滑窗体对象</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">window</span>
+|
+
+<span class="param-type">WebviewObject</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5> 
+        <!-- <h5>示例</h5> -->
+        
+        <p class="code-caption">左侧滑菜单</p>
+    
+    <pre class="sunlight-highlight-javascript">this.plus.open(&#x27;index.html&#x27;, &quot;menuLeft&quot;, {
+  ani: { aniShow: &quot;slide-in-left&quot; },
+  style: {
+    right: &quot;30%&quot;,
+    width: &quot;70%&quot;,
+    popGesture: &quot;none&quot;
+  }
+});</pre>
+
+        <p class="code-caption">右侧滑菜单</p>
+    
+    <pre class="sunlight-highlight-javascript">this.plus.open(&#x27;index.html&#x27;, &quot;menuRight&quot;, {
+  ani: { aniShow: &quot;slide-in-right&quot; },
+  style: {
+    left: &quot;30%&quot;,
+    width: &quot;70%&quot;,
+    popGesture: &quot;none&quot;
+  }
+});</pre>
+
+        <p class="code-caption">底侧滑菜单</p>
+    
+    <pre class="sunlight-highlight-javascript">this.plus.open(&#x27;index.html&#x27;, &quot;menuBottom&quot;, {
+  ani: { aniShow: &quot;slide-in-bottom&quot; },
+  style: {
+    height: &quot;30%&quot;,
+    top: &quot;70%&quot;,
+    popGesture: &quot;none&quot;
+  }
+});</pre>
+
+        <p class="code-caption">顶侧滑菜单</p>
+    
+    <pre class="sunlight-highlight-javascript">this.plus.open(&#x27;index.html&#x27;, &quot;menuTop&quot;, {
+  ani: { aniShow: &quot;slide-in-top&quot; },
+  style: {
+    height: &quot;30%&quot;,
+    bottom: &quot;70%&quot;,
+    popGesture: &quot;none&quot;
+  }
+});</pre>
+
 
     
 </dd>
@@ -1495,7 +2462,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".open">open<span class="signature">(url, id, opts)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".open">open(url [, id] [, opts])</h4>
     
     
 </dt>
@@ -1526,6 +2493,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -1552,10 +2521,18 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>url</p></td>
+            <td class="description last"><p>新窗口加载的HTML页面地址</p></td>
         </tr>
 
     
@@ -1576,10 +2553,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>窗口id</p></td>
+            <td class="description last"><p>新窗口的标识</p></td>
         </tr>
 
     
@@ -1600,10 +2587,314 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>{loading:true,ani:{duration: 300,aniShow: 'slide-in-right'},ext:{},style:{scalable:false,bounce:&quot;&quot;,plusrequire:&quot;ahead&quot;,softinputMode:&quot;adjustPan&quot;}}</p></td>
+            <td class="description last"><p>参数</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>loading</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>是否显示loading等待效果</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ani</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>显示窗口的动画</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>aniShow</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'slide-in-right'
+                
+                </td>
+            
+
+            <td class="description last"><p>显示窗口的动画效果</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    300
+                
+                </td>
+            
+
+            <td class="description last"><p>显示窗口动画的持续时间</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ext</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">JSON</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>创建窗口的额外扩展参数，设置扩展参数后可以直接通过窗口对象的点（“.”）操作符获取扩展参数属性值。</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>style</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>创建窗口的样式（如窗口宽、高、位置等信息），参考<a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewStyles">HTML5+ API</a>。</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -1663,6 +2954,44 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>窗体对象</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">window</span>
+|
+
+<span class="param-type">WebviewObject</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">this.plus.open(&#x27;login.html&#x27;, &quot;login&quot;, {
+  ext: {
+    uid: 121
+  }
+});</pre>
+
 
     
 </dd>
@@ -1671,7 +3000,7 @@
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".openBrowser">openBrowser<span class="signature">(url)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".openBrowser">openBrowser(url)</h4>
     
     
 </dt>
@@ -1731,7 +3060,7 @@
 
             
 
-            <td class="description last"><p>url</p></td>
+            <td class="description last"><p>页面地址</p></td>
         </tr>
 
     
@@ -1793,13 +3122,20 @@
     
 
     
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">this.plus.openBrowser(&#x27;http://www.baidu.com&#x27;);</pre>
+
+
+    
 </dd>
 
         
             ﻿
 <hr>
 <dt>
-    <h4 class="name" id=".show">show<span class="signature">(w, opts)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".show">show(w [, opts])</h4>
     
     
 </dt>
@@ -1829,6 +3165,8 @@
 
         <th>Type</th>
 
+        
+        <th>Argument</th>
         
 
         
@@ -1862,10 +3200,18 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>窗体对象或窗体id</p></td>
         </tr>
 
     
@@ -1886,10 +3232,238 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>{loading:true,ani:{duration: 300,aniShow: 'slide-in-right'}}</p></td>
+            <td class="description last"><p>显示参数</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>loading</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>是否显示loading等待效果</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ani</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>显示窗口的动画</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>aniShow</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'slide-in-right'
+                
+                </td>
+            
+
+            <td class="description last"><p>显示窗口的动画效果</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    300
+                
+                </td>
+            
+
+            <td class="description last"><p>显示窗口动画的持续时间</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -1949,6 +3523,14 @@
     
 
     
+
+    
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">// 根据id显示
+this.plus.show(&#x27;login&#x27;)</pre>
+
 
     
 </dd>
@@ -2003,7 +3585,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Fri Dec 1st 2017
+		on Sun Dec 3rd 2017
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
