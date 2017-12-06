@@ -39,6 +39,12 @@
       <button @click="menuBottom">底侧滑</button>
       <button @click="menuTop">顶侧滑</button>
     </p>
+    <p>
+      下拉刷新：<br>
+      <button @click="pullRefresh1">圆圈样式</button>
+      <button @click="pullRefresh2">经典样式</button>
+      <button @click="pullRefresh3">关闭</button>
+    </p>
   </div>
 </template>
 
@@ -68,7 +74,6 @@ export default {
           self.statusBar(plus.webview.getTopWebview().bgcolor);
         });
       }
-
       setTimeout(() => {
         let handle1 = {
           act() {
@@ -268,8 +273,52 @@ export default {
           popGesture: "none"
         }
       });
-    }
+    },
     // #endregion
+    pullRefresh1: function() {
+      this.plus.pullRefresh(
+        {
+          support: true,
+          color: "#2BD009",
+          style: "circle",
+          offset: "0px",
+          range: "80px",
+          height: "50px"
+        },
+        function(end) {
+          setTimeout(() => {
+            end();
+          }, 1000);
+        }
+      );
+    },
+    pullRefresh2: function() {
+      this.plus.pullRefresh(
+        {
+          support: true,
+          style: "default",
+          range: "30px",
+          height: "30px",
+          contentdown: {
+            caption: "下拉可以刷新"
+          },
+          contentover: {
+            caption: "释放立即刷新"
+          },
+          contentrefresh: {
+            caption: "正在刷新..."
+          }
+        },
+        function(end) {
+          setTimeout(() => {
+            end();
+          }, 1000);
+        }
+      );
+    },
+    pullRefresh3: function() {
+      this.plus.pullRefresh();
+    }
   }
 };
 </script>
@@ -279,6 +328,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

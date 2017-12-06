@@ -337,26 +337,30 @@ export function openBrowser(url) {
  * @param {String|window|WebviewObject} w 
  */
 export function getWin(w) {
+  let win = null
   if (window.plus) {
-    if (!w) {
-      w = plus.webview.currentWebview()
+    if (utils.isObject(w) && w.draw) {
+      win = w
     } else if (utils.isString(w)) {
-      w = plus.webview.getWebviewById(w)
+      win = plus.webview.getWebviewById(w)
+    }
+    if (!win) {
+      win = plus.webview.currentWebview()
     }
   } else {
-    if (!w) {
-      w = window
-    } else {
+    if (utils.isString(w)) {
       let views = [...mainWin.__all_wins]
-      w = views.find(function (item, index, arr) {
-        return item.id === id;
+      win = views.find(function (item, index, arr) {
+        return item.id === w
       })
-      if (!w) {
-        w = null
-      }
+    } else if (utils.isWindow(w)) {
+      win = w
+    }
+    if (!win) {
+      win = window
     }
   }
-  return w
+  return win
 }
 
 /**
@@ -431,6 +435,64 @@ export function menu(url = '', id = '', opts = { loading: true, ext: {}, ani: {}
   }
 }
 
+/**
+ * 当前Webview窗口的下拉刷新效果
+ * @param {Object} [style={}]  Webview窗口下拉刷新样式，参考{@link http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewRefreshStyles HTML5+ API}
+ * @param {Function} [callback=()=>{}] Webview窗口下拉刷新事件回调,接收的参数为：结束Webview窗口的下拉刷新function
+ * @example <caption>圆圈样式下拉刷新</caption>
+ * this.plus.pullRefresh({
+ *     support: true,
+ *     color: "#2BD009",
+ *     style: "circle",
+ *     offset: "0px",
+ *     range: "80px",
+ *     height: "50px"
+ *   }, function(end) {
+ *     setTimeout(() => {
+ *       end();
+ *     }, 1000);
+ *   }
+ * );
+ * @example <caption>经典下拉刷新样式（下拉拖动时页面内容跟随）</caption>
+ * this.plus.pullRefresh({
+ *     support: true,
+ *     style: "default",
+ *     range: "30px",
+ *     height: "30px",
+ *     contentdown: {
+ *       caption: "下拉可以刷新"
+ *     },
+ *     contentover: {
+ *       caption: "释放立即刷新"
+ *     },
+ *     contentrefresh: {
+ *       caption: "正在刷新..."
+ *     }
+ *   }, function(end) {
+ *     setTimeout(() => {
+ *       end();
+ *     }, 1000);
+ *   }
+ * );
+ * @example <caption>关闭窗口的下拉刷新功能</caption>
+ * this.plus.pullRefresh({ support: false });
+ * this.plus.pullRefresh();
+ */
+export function pullRefresh(style = {}, callback = () => { }) {
+  let win = getWin()
+  if (window.plus) {
+    if (style && !!style.support && utils.isFunction(callback)) {
+      win.setPullToRefresh(style, function () {
+        let end = () => {
+          win.endPullToRefresh()
+        }
+        callback(end)
+      })
+    } else {
+      win.setPullToRefresh(style)
+    }
+  }
+}
 // #endregion
 
 
