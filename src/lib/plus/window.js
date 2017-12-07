@@ -608,6 +608,18 @@ export function pullRefresh(style = {}, callback = () => { }) {
     }
   }
 }
+/**
+ * 当前Webview窗口的手动触发下拉刷新效果
+ * 前提是设置了下拉刷新效果
+ * @example <caption>关闭窗口的下拉刷新功能</caption>
+ * this.plus.beginPullRefresh();
+ */
+export function beginPullRefresh() {
+  let win = getWin()
+  if (window.plus) {
+    win.beginPullToRefresh();
+  }
+}
 // #endregion
 
 

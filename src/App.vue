@@ -1,6 +1,6 @@
 <template>
-  <div id="app" :style="{color:color}">
-    <div :style="{position:'fixed',top:0,height:'30px',width:'100%',background:color,color:bgcolor,'line-height':'30px'}">
+  <div id="app" >
+    <div :style="{position:'fixed',top:0,height:'70px',width:'100%',background:bgcolor,color:color,'line-height':'70px'}">
       头部
     </div>
     <test>
@@ -9,6 +9,13 @@
     <p>
       广播：<br>
       <button @click="send" >send</button>
+    </p>
+    <p>
+      下拉刷新：<br>
+      <button @click="pullRefresh1">圆圈样式</button>
+      <button @click="pullRefresh2">经典样式</button>
+      <button @click="pullRefresh3">关闭</button>
+      <button @click="pullRefresh4">手动刷新</button>
     </p>
     <p>
       窗体控制：<br>
@@ -39,12 +46,6 @@
       <button @click="menuBottom">底侧滑</button>
       <button @click="menuTop">顶侧滑</button>
     </p>
-    <p>
-      下拉刷新：<br>
-      <button @click="pullRefresh1">圆圈样式</button>
-      <button @click="pullRefresh2">经典样式</button>
-      <button @click="pullRefresh3">关闭</button>
-    </p>
   </div>
 </template>
 
@@ -59,6 +60,11 @@ export default {
   load: {
     dom() {
       console.log("APP主页  Dom加载完成");
+      document.addEventListener(
+        "visibilitychange",
+        this.handleVisibilityChange,
+        false
+      );
     },
     plus() {
       let self = this;
@@ -74,6 +80,8 @@ export default {
           self.statusBar(plus.webview.getTopWebview().bgcolor);
         });
       }
+      this.pullRefresh1();
+      // alert(plus.navigator.getStatusbarHeight());
       setTimeout(() => {
         let handle1 = {
           act() {
@@ -113,13 +121,20 @@ export default {
   },
   created() {
     this.bgcolor = this.plus.randomColor();
-    document.body.style.backgroundColor = this.bgcolor;
     this.color = this.plus.reversalColor(this.bgcolor);
+    // document.body.style.backgroundColor = this.color;
   },
   mounted: function() {
     console.log("APP主页  mounted");
   },
   methods: {
+    //visibilitychange
+    handleVisibilityChange() {
+      if (!document.hidden && this.ishome) {
+        // alert("显示");
+        this.pullRefresh4();
+      }
+    },
     // #region 广播消息
     send: function() {
       this.plus.send("event1", { a: 1 }, { self: true });
@@ -279,11 +294,9 @@ export default {
       this.plus.pullRefresh(
         {
           support: true,
-          color: "#2BD009",
+          color: "#000000",
           style: "circle",
-          offset: "0px",
-          range: "80px",
-          height: "50px"
+          offset: "0px"
         },
         function(end) {
           setTimeout(() => {
@@ -293,6 +306,7 @@ export default {
       );
     },
     pullRefresh2: function() {
+      var self = this;
       this.plus.pullRefresh(
         {
           support: true,
@@ -310,6 +324,7 @@ export default {
           }
         },
         function(end) {
+          self.send();
           setTimeout(() => {
             end();
           }, 1000);
@@ -318,6 +333,9 @@ export default {
     },
     pullRefresh3: function() {
       this.plus.pullRefresh();
+    },
+    pullRefresh4: function() {
+      this.plus.beginPullRefresh();
     }
   }
 };
@@ -337,7 +355,7 @@ body {
   text-align: center;
   /* color: #2c3e50; */
   background-color: transparent;
-  margin-top: 60px;
+  margin-top: 75px;
 }
 p {
   padding-left: 20px;

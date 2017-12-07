@@ -5,6 +5,8 @@
   ✔ 弹出系统软键盘模式 plus.webview.WebviewStyles 的 softinputMode 安卓无效 @done(17-11-28 11:20)
   ✔ open是否显示loading @done(17-11-30 14:56)
   ✔ open需要aniShow参数 @done(17-11-30 14:56)
+  ☐ 子窗体
+  ☐ open window with title
 ✔ 全屏、状态栏 @done(17-11-30 12:08)
   ✔ navigator:setStatusBarBackground @done(17-11-27 17:12)
 ✔ back @done(17-11-30 12:07)
