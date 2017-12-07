@@ -1,4 +1,4 @@
-import * as _plus from './plus'
+import * as _plus from './plus/index.js'
 import qs from 'qs'
 
 // lazy绑定
@@ -173,12 +173,12 @@ function onplusload(callback, vm = null) {
       }
     }
     window.mainWin.__all_wins.add(window)
-    let isHome = _plus.isHome()
-    if (isHome) {
+    let _isHome = _plus.isHome()
+    if (_isHome) {
       console.warn('[web调试模式(非设备)] 当前是首页，手动刷新本页会影响已有窗体的通知失效。')
     }
     window.onbeforeunload = function () {
-      if (!isHome) {
+      if (!_isHome) {
         window.mainWin.__all_wins.delete(window)
       }
     }

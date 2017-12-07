@@ -1,7 +1,16 @@
 {
-  "plugins": [
-    "transform-runtime"
-  ],
+  // "plugins": [
+  //   "transform-runtime"
+  // ],
+  // "presets": [
+  //   [
+  //     "env",
+  //     {
+  //       "modules": false
+  //     }
+  //   ],
+  //   "stage-2"
+  // ]
   "presets": [
     [
       "env",
@@ -9,6 +18,12 @@
         "modules": false
       }
     ],
+    "es2015",
+    "flow-vue",
     "stage-2"
+  ],
+  "plugins": [
+    "syntax-dynamic-import",
+    "transform-runtime"
   ]
 }
