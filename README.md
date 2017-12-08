@@ -8,8 +8,6 @@
 
 > 加入了babel-polyfill [[支持的特性]](https://github.com/zloirock/core-js#core-js)
 
-> [完整文档](https://232003894.github.io/vueh5plus/index.html) 和 [git仓库](https://github.com/232003894/vueh5plus) 
-
 
 ## 安装
 ``` bash
@@ -94,7 +92,6 @@ Vue.use(plus, {
 
 ## 参考
 - [多页模板](https://github.com/232003894/vue-webpack-pages)
-- [vue h5 plus 文档](https://232003894.github.io/vueh5plus/index.html)  
 - [Vue 官方模板](http://vuejs-templates.github.io/webpack)
 - [Vue2 中文](https://cn.vuejs.org/v2/guide/index.html)
 - [webpack 中文](https://doc.webpack-china.org/concepts/)
