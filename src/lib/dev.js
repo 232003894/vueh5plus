@@ -1,8 +1,6 @@
 // import 'babel-polyfill'
 import * as _plus from './plus/index.js'
 import qs from 'qs'
-
-alert(window.Promise)
 // lazy绑定
 var vue
 // listen的集合
