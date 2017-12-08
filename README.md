@@ -89,3 +89,8 @@ Vue.use(plus, {
 
 
 ## [文档](https://232003894.github.io/vueh5plus/index.html)
+
+## 参考
+1. 多页模板 [[git]](https://github.com/232003894/vue-webpack-pages)
+1. webpack [[中文]](https://doc.webpack-china.org/concepts/)
+1. vue-loader [[中文]](https://vue-loader.vuejs.org/zh-cn/)
