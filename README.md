@@ -1,8 +1,14 @@
-# vue-h5-plus
+[![](https://img.shields.io/npm/l/vue-h5-plus.svg?style=flat-square)](https://www.npmjs.com/package/vue-h5-plus) 
+[![](https://img.shields.io/npm/v/vue-h5-plus.svg?style=flat-square)](https://www.npmjs.com/package/vue-h5-plus) 
+[![](https://img.shields.io/npm/dm/vue-h5-plus.svg?style=flat-square)](https://www.npmjs.com/package/vue-h5-plus) 
+[![](https://img.shields.io/npm/dt/vue-h5-plus.svg?style=flat-square)](https://www.npmjs.com/package/vue-h5-plus) 
+# vue-h5-plus 
 
 > `H5Plus Extend for Vue.js`
 
-> 包含了 babel-polyfill（所以文件大点，但是省事些） [[支持的特性]](https://github.com/zloirock/core-js#core-js)
+> 加入了babel-polyfill [[支持的特性]](https://github.com/zloirock/core-js#core-js)
+
+> [完整文档](https://232003894.github.io/vueh5plus/index.html) 和 [git仓库](https://github.com/232003894/vueh5plus) 
 
 
 ## 安装
@@ -86,11 +92,10 @@ Vue.use(plus, {
 })
 ```
 
-
-
-## [文档](https://232003894.github.io/vueh5plus/index.html)
-
 ## 参考
-1. 多页模板 [[git]](https://github.com/232003894/vue-webpack-pages)
-1. webpack [[中文]](https://doc.webpack-china.org/concepts/)
-1. vue-loader [[中文]](https://vue-loader.vuejs.org/zh-cn/)
+- [多页模板](https://github.com/232003894/vue-webpack-pages)
+- [vue h5 plus 文档](https://232003894.github.io/vueh5plus/index.html)  
+- [Vue 官方模板](http://vuejs-templates.github.io/webpack)
+- [Vue2 中文](https://cn.vuejs.org/v2/guide/index.html)
+- [webpack 中文](https://doc.webpack-china.org/concepts/)
+- [vue-loader中文](https://vue-loader.vuejs.org/zh-cn/)
