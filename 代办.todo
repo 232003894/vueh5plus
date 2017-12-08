@@ -18,3 +18,8 @@
 ✔ 自定义扩展：nativeUI 等 @done(17-12-01 09:10)
 Bug
 ✔ randomColor 方法有bug @done(17-11-27 09:17)
+
+WeakMap
+Set
+[...
+find

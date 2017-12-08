@@ -1,81 +1,50 @@
-const fs = require('fs')
-const path = require('path')
-const zlib = require('zlib')
-const uglify = require('uglify-js')
-const rollup = require('rollup')
-const configs = require('./configs')
-
-if (!fs.existsSync('dist')) {
-  fs.mkdirSync('dist')
-}
-
-build(Object.keys(configs).map(key => configs[key]))
-
-function build(builds) {
-  let built = 0
-  const total = builds.length
-  const next = () => {
-    buildEntry(builds[built]).then(() => {
-      built++
-      if (built < total) {
-        next()
-      }
-    }).catch(logError)
-  }
-
-  next()
-}
-
-function buildEntry({ input, output }) {
-  const isProd = /min\.js$/.test(output.file)
-  return rollup.rollup(input)
-    .then(bundle => bundle.generate(output))
-    .then(({ code }) => {
-      if (isProd) {
-        var minified = uglify.minify(code, {
-          output: {
-            preamble: output.banner,
-            /* eslint-disable camelcase */
-            ascii_only: true
-            /* eslint-enable camelcase */
-          }
-        }).code
-        return write(output.file, minified, true)
-      } else {
-        return write(output.file, code)
-      }
+var fs = require('fs');
+var rollup = require('rollup');
+var uglify = require('uglify-js');
+var babel = require('rollup-plugin-babel');
+var package = require('../package.json');
+const banner =
+  `/**
+  * ${package.name} v${package.version}
+  * ${package.description}
+  * (c) ${new Date().getFullYear()} ${package.author}
+  * repository: ${package.repository.url}
+  * @license MIT
+  */`
+rollup.rollup({
+  entry: 'src/lib/index.js',
+  plugins: [
+    babel({
+      presets: ['es2015-loose-rollup']
     })
-}
-
-function write(dest, code, zip) {
-  return new Promise((resolve, reject) => {
-    function report(extra) {
-      console.log(blue(path.relative(process.cwd(), dest)) + ' ' + getSize(code) + (extra || ''))
-      resolve()
-    }
-
-    fs.writeFile(dest, code, err => {
-      if (err) return reject(err)
-      if (zip) {
-        zlib.gzip(code, (err, zipped) => {
-          if (err) return reject(err)
-          report(' (gzipped: ' + getSize(zipped) + ')')
-        })
-      } else {
-        report()
-      }
-    })
+  ]
+})
+  .then(function (bundle) {
+    return write('vue-h5plus.common.js', bundle.generate({
+      format: 'cjs',
+      banner: banner
+    }).code, bundle);
   })
+  .catch(logError);
+
+function write(dest, code, bundle) {
+  return new Promise(function (resolve, reject) {
+    fs.writeFile(dest, code, function (err) {
+      if (err) return reject(err);
+      console.log(blue(dest) + ' ' + getSize(code));
+      resolve(bundle);
+    });
+  });
 }
 
 function getSize(code) {
-  return (code.length / 1024).toFixed(2) + 'kb'
+  return (code.length / 1024).toFixed(2) + 'kb';
 }
 
 function logError(e) {
-  console.log(e)
+  console.log(e);
 }
 
 function blue(str) {
-  return '\x1b[1m\x1b[34m' + str + '\x1b[39m\x1b[22m'
+  return '\x1b[1m\x1b[34m' + str + '\x1b[39m\x1b[22m';
 }
