@@ -1,6 +1,8 @@
 var fs = require('fs');
 var rollup = require('rollup');
 var uglify = require('uglify-js');
+var cjs = require('rollup-plugin-commonjs')
+var node = require('rollup-plugin-node-resolve')
 var babel = require('rollup-plugin-babel');
 var package = require('../package.json');
 
@@ -13,13 +15,12 @@ const banner =
   * @license MIT
   */
   `
-
 rollup.rollup({
   entry: 'src/lib/index.js',
   plugins: [
-    babel({
-      presets: ['es2015-loose-rollup']
-    })
+    node(),
+    cjs(),
+    babel()
   ]
 })
   .then(function (bundle) {
@@ -30,16 +31,15 @@ rollup.rollup({
   .catch(logError);
 
 function write(dest, code, bundle) {
-  let _code = banner + uglify.minify(code, {
+  code = banner + uglify.minify(code, {
     output: {
-      // 中文ascii化，非常有用！防止中文乱码的神配置
       ascii_only: true
     }
   }).code
   return new Promise(function (resolve, reject) {
-    fs.writeFile(dest, _code, function (err) {
+    fs.writeFile(dest, code, function (err) {
       if (err) return reject(err);
-      console.log(blue(dest) + ' ' + getSize(_code));
+      console.log(blue(dest) + ' ' + getSize(code));
       resolve(bundle);
     });
   });
