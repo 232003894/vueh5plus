@@ -1,7 +1,7 @@
 
 /**
  * 类型和验证
- * @module utils.type
+ * @module utils.Type
  */
 // #region type
 
@@ -147,8 +147,15 @@ export function isURL(str) {
 //  #endregion
 
 /**
- * 文本换行处理，去html标签
- * @module utils.txt
+ * 扩展方法
+ * 1.文本换行处理，去html标签
+ * 2.颜色和样式
+ *  1.获取dom元素的style
+ *  2.随机颜色
+ *  3.颜色值的反色
+ * 3.对象合并、拷贝
+ * 4.toFixed
+ * @module utils.Extend
  */
 // #region txt
 /**
@@ -199,13 +206,6 @@ export function delHtmlTag(html) {
 }
 //  #endregion
 
-/**
- * 颜色和样式
- * 1.获取dom元素的style
- * 2.随机颜色
- * 3.颜色值的反色
- * @module utils.style
- */
 // #region color
 /**
  * 计算颜色值的反色，colorStr格式为：rgb(0,0,0),#000000或者#f00
@@ -290,10 +290,6 @@ export function getStyle(domObj) {
 }
 //  #endregion
 
-/**
- * 对象对比和合并、拷贝
- * @module utils.object
- */
 // #region object
 /**
  * 用于合并多个对象或深克隆,类似于jQuery.extend；
@@ -391,95 +387,91 @@ export function mix() {
   return target
 }
 
-/**
- * 比较对象是否相等
- * @param {Object} x - 对象x
- * @param {Object} y - 对象y
- * @param {String} [propertys=''] 设置对比的属性,多属性用逗号分隔
- */
-export function equals(x, y, propertys = '') {
-  // If both x and y are null or undefined and exactly the same
-  if (x === y) {
-    return true
-  }
-  // If they are not strictly equal, they both need to be Objects
-  if (!(x instanceof Object) || !(y instanceof Object)) {
-    return false
-  }
-  // They must have the exact same prototype chain, the closest we can do is
-  // test the constructor.
-  if (x.constructor !== y.constructor) {
-    return false
-  }
+// /**
+//  * 比较对象是否相等
+//  * @param {Object} x - 对象x
+//  * @param {Object} y - 对象y
+//  * @param {String} [propertys=''] 设置对比的属性,多属性用逗号分隔
+//  */
+// export function equals(x, y, propertys = '') {
+//   // If both x and y are null or undefined and exactly the same
+//   if (x === y) {
+//     return true
+//   }
+//   // If they are not strictly equal, they both need to be Objects
+//   if (!(x instanceof Object) || !(y instanceof Object)) {
+//     return false
+//   }
+//   // They must have the exact same prototype chain, the closest we can do is
+//   // test the constructor.
+//   if (x.constructor !== y.constructor) {
+//     return false
+//   }
 
-  if (typeof (x) === 'function' && typeof (y) === 'function') {
-    return (x).toString() === (y).toString()
-  }
+//   if (typeof (x) === 'function' && typeof (y) === 'function') {
+//     return (x).toString() === (y).toString()
+//   }
 
-  if (propertys) {
-    var arrs = propertys.split(',')
-    for (var arr in arrs) {
-      var _p = arrs[arr]
-      if (x.hasOwnProperty(_p) && y.hasOwnProperty(_p)) {
-        // If they have the same strict value or identity then they are equal
-        if (x[_p] === y[_p]) {
-          continue
-        }
-        // Numbers, Strings, Functions, Booleans must be strictly equal
-        if (typeof (x[_p]) !== 'object' && typeof (x[_p]) !== 'function') {
-          return false
-        }
-        // Objects and Arrays must be tested recursively
-        if (!equals(x[_p], y[_p])) {
-          return false
-        }
-      }
-    }
-  } else {
-    for (var p in x) {
-      // Inherited properties were tested using x.constructor === y.constructor
-      if (x.hasOwnProperty(p)) {
-        // Allows comparing x[ p ] and y[ p ] when set to undefined
-        if (!y.hasOwnProperty(p)) {
-          return false
-        }
-        // If they have the same strict value or identity then they are equal
-        if (x[p] === y[p]) {
-          continue
-        }
-        // Numbers, Strings, Functions, Booleans must be strictly equal
-        if (typeof (x[p]) !== 'object' && typeof (x[p]) !== 'function') {
-          return false
-        }
-        // Objects and Arrays must be tested recursively
-        if (!equals(x[p], y[p])) {
-          return false
-        }
-      }
-    }
+//   if (propertys) {
+//     var arrs = propertys.split(',')
+//     for (var arr in arrs) {
+//       var _p = arrs[arr]
+//       if (x.hasOwnProperty(_p) && y.hasOwnProperty(_p)) {
+//         // If they have the same strict value or identity then they are equal
+//         if (x[_p] === y[_p]) {
+//           continue
+//         }
+//         // Numbers, Strings, Functions, Booleans must be strictly equal
+//         if (typeof (x[_p]) !== 'object' && typeof (x[_p]) !== 'function') {
+//           return false
+//         }
+//         // Objects and Arrays must be tested recursively
+//         if (!equals(x[_p], y[_p])) {
+//           return false
+//         }
+//       }
+//     }
+//   } else {
+//     for (var p in x) {
+//       // Inherited properties were tested using x.constructor === y.constructor
+//       if (x.hasOwnProperty(p)) {
+//         // Allows comparing x[ p ] and y[ p ] when set to undefined
+//         if (!y.hasOwnProperty(p)) {
+//           return false
+//         }
+//         // If they have the same strict value or identity then they are equal
+//         if (x[p] === y[p]) {
+//           continue
+//         }
+//         // Numbers, Strings, Functions, Booleans must be strictly equal
+//         if (typeof (x[p]) !== 'object' && typeof (x[p]) !== 'function') {
+//           return false
+//         }
+//         // Objects and Arrays must be tested recursively
+//         if (!equals(x[p], y[p])) {
+//           return false
+//         }
+//       }
+//     }
 
-    for (p in y) {
-      // allows x[ p ] to be set to undefined
-      if (y.hasOwnProperty(p) && !x.hasOwnProperty(p)) {
-        return false
-      }
-    }
-  }
+//     for (p in y) {
+//       // allows x[ p ] to be set to undefined
+//       if (y.hasOwnProperty(p) && !x.hasOwnProperty(p)) {
+//         return false
+//       }
+//     }
+//   }
 
-  return true
-}
+//   return true
+// }
 //  #endregion
 
-/**
- * 数字toFixed
- * @module utils.number
- */
 // #region number
 import accounting from 'accounting'
 
 /**
  * 把 Number 四舍五入为指定小数位数的数字
- * @param {Number} value 
+ * @param {Number|String} value 
  * @param {Number} [precision=0] - 保留位数
  * @param {Boolean} [toStr=false] - 是否输出为字符串格式，false则输出数值
  * @returns {Number|String} 四舍五入后的数字或字符串

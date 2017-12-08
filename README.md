@@ -2,6 +2,8 @@
 
 > `H5Plus Extend for Vue.js`
 
+> 包含了 babel-polyfill（所以文件大点，但是省事些） [[支持的特性]](https://github.com/zloirock/core-js#core-js)
+
 
 ## 安装
 ``` bash
