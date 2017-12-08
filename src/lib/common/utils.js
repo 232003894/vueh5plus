@@ -1,7 +1,7 @@
 
 /**
  * 类型和验证
- * @module utils.type
+ * @module utils.Type
  */
 // #region type
 
