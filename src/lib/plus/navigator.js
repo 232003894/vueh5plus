@@ -21,5 +21,31 @@ export function setStatusBarBackground(color) {
       // document.title = color
     }
   }
+}
 
+/**
+ * 判断当前是否为沉浸式状态栏模式, 注意：如果当前系统版本不支持沉浸式状态栏也返回false。
+ * @returns {Bollean} 是否为沉浸式状态栏模式
+ * @example 
+ * this.plus.isImmersedStatusbar();
+ */
+export function isImmersedStatusbar() {
+  if (window.plus) {
+    return plus.navigator.isImmersedStatusbar()
+  } else {
+    return false
+  }
+}
+
+/**
+ * 获取系统状态栏高度
+ * @returns {Number} 系统状态栏的高度值,单位为像素（px）
+ * @example 
+ * this.plus.getStatusbarHeight();
+ */
+export function getStatusbarHeight() {
+  if (window.plus) {
+    return plus.navigator.getStatusbarHeight()
+  } else {
+  }
 }
