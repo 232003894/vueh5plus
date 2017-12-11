@@ -209,6 +209,7 @@ const h5plus = {
         }
       }
     }
+
     Vue.prototype.plus = __plus
   }
 }

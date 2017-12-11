@@ -23,17 +23,31 @@ export function setStatusBarBackground(color) {
   }
 }
 
+// /**
+//  * 获取系统状态栏高度,如果大于0则表示当前环境支持沉浸式状态栏
+//  * @returns {Number} 系统状态栏的高度值,单位为像素（px）
+//  * @example 
+//  * this.plus.getStatusbarHeight();
+//  */
+// export function getStatusbarHeight() {
+//   var immersed = 0;
+//   var ms = (/Html5Plus\/.+\s\(.*(Immersed\/(\d+\.?\d*).*)\)/gi).exec(navigator.userAgent);
+//   if (ms && ms.length >= 3) { // 当前环境为沉浸式状态栏模式
+//     immersed = parseFloat(ms[2]);// 获取状态栏的高度
+//   }
+//   return immersed
+// }
+
+let _immersed = 0
+var ms = (/Html5Plus\/.+\s\(.*(Immersed\/(\d+\.?\d*).*)\)/gi).exec(navigator.userAgent);
+if (ms && ms.length >= 3) { // 当前环境为沉浸式状态栏模式
+  _immersed = parseFloat(ms[2]);// 获取状态栏的高度
+}
+
 /**
  * 获取系统状态栏高度,如果大于0则表示当前环境支持沉浸式状态栏
- * @returns {Number} 系统状态栏的高度值,单位为像素（px）
+ * @type {Number}
  * @example 
- * this.plus.getStatusbarHeight();
+ * this.plus.immersed
  */
-export function getStatusbarHeight() {
-  var immersed = 0;
-  var ms = (/Html5Plus\/.+\s\(.*(Immersed\/(\d+\.?\d*).*)\)/gi).exec(navigator.userAgent);
-  if (ms && ms.length >= 3) { // 当前环境为沉浸式状态栏模式
-    immersed = parseFloat(ms[2]);// 获取状态栏的高度
-  }
-  return immersed
-}
+export var immersed = _immersed
