@@ -70,12 +70,12 @@ const defaultWin = {
 }
 // 默认窗口显示配置
 const defaultShow = {
-  duration: os.ios ? 400 : 300,
+  duration: os.ios ? 300 : 200,
   aniShow: 'slide-in-right'
 }
 // 默认窗口隐藏配置
 const defaultHide = {
-  duration: os.ios ? 600 : 450,
+  duration: os.ios ? 450 : 300,
   aniHide: 'slide-out-right'
 }
 // #endregion
