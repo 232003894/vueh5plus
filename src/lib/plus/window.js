@@ -115,10 +115,10 @@ export function create(url = '', id = '', opts = { ext: {}, style: {} }) {
   if (!opts) {
     opts = { ext: {}, style: {} }
   }
-  if (opts.ext) {
+  if (!opts.ext) {
     opts.ext = {}
   }
-  if (opts.style) {
+  if (!opts.style) {
     opts.style = {}
   }
   if (window.plus) {
