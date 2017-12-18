@@ -158,7 +158,7 @@ export function show(w, opts = { loading: true, ani: {} }) {
   if (!opts) {
     opts = { loading: true, ani: {} }
   }
-  if (opts.ani) {
+  if (!opts.ani) {
     opts.ani = {}
   }
   if (!utils.isBoolean(opts.loading)) {
