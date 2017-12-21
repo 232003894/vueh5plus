@@ -91,6 +91,7 @@ export default {
         let handle2 = {
           act() {
             console.log(self.$options.name + " back  handle2");
+            return false;
           }
         };
         self.plus.addBack(handle1);
@@ -102,7 +103,7 @@ export default {
             return false;
           }
         });
-        self.plus.removeBack(handle3);
+        // self.plus.removeBack(handle3);
         // console.log(self.plus.acts(self));
       }, 17);
       // this.plus.errorPage("/error.html");

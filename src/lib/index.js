@@ -136,17 +136,17 @@ function onplusload(callback, vm = null) {
  */
 (function () {
   onplusload(function () {
-    window.plus && window.plus.key.addEventListener('backbutton', _plus.back, false)
+    window.plus && window.plus.key.addEventListener('backbutton', () => { _plus.back(false) }, false)
     if (_plus.os.plus) {
       // 设备
       document.addEventListener('__backbutton', function (e) {
-        _plus.back()
+        _plus.back(false)
       })
     } else {
       // 非设备:基本上是给调试用的
       window.addEventListener('message', function (e) {
         if (e.data && e.data.name === '__backbutton') {
-          _plus.back()
+          _plus.back(false)
         }
       }, false)
     }
