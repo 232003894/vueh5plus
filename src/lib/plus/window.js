@@ -290,7 +290,7 @@ export function hide(w, hideOpts = {}) {
  * @param {Number} [closeOpts.duration=300] - 关闭窗口动画的持续时间
  * @example
  * // 根据id关闭
- * this.plus.hide('login')
+ * this.plus.close('login')
  */
 export function close(w, closeOpts = {}) {
   w = getWin(w)
