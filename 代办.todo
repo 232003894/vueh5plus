@@ -1,3 +1,4 @@
+文档命令：jsdoc -c jsdoc-conf.json
 ✔ nativeUI @done(17-11-27 15:07)
   ✔ toast 参数:文字，垂直位置，时间，图标，是否自动断行 @done(17-11-27 15:07)
 ✔ window @done(17-11-28 11:23)
