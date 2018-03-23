@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Vue H5+ Modules</title>
+	<title>Vue H5+ Extend</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,15 +65,10 @@
 		<div id="main">
 			﻿
 
-	<h1 class="page-title">Modules</h1>
+	<h1 class="page-title">Extend</h1>
 <section>
 
 <header>
-    
-        <h2>
-        
-        </h2>
-        
     
 </header>
 
@@ -81,6 +76,8 @@
 <article>
     <div class="container-overview">
     
+        
+            <div class="description"><p>原生扩展</p></div>
         
 
         
@@ -139,6 +136,262 @@
 
     
 
+    
+        <!-- <h3 class="subsection-title">方法</h3> -->
+
+        <dl>
+            ﻿
+<hr>
+<dt>
+    <h4 class="name" id=".copyToClip">copyToClip(txt)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>写入剪贴板（复制）</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>txt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last"><p>复制的字符串</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">this.plus.copyToClip(&quot;复制的字符串&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            ﻿
+<hr>
+<dt>
+    <h4 class="name" id=".readFromClip">readFromClip()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>读取剪贴板</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>剪贴板内容</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">this.plus.getFromClip();</pre>
+
+
+    
+</dd>
+
+        </dl>
     
 
     

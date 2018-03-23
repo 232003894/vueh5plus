@@ -4,14 +4,12 @@
  * @module back
  */
 
-import {
-  os
-} from './os.js'
-import * as utils from '../common/utils'
-import * as win from './window'
-import * as ui from './nativeUI'
+import { os } from "./os.js"
+import * as utils from "../common/utils"
+import * as win from "./window"
+import * as ui from "./nativeUI"
 
-import { send } from './broadcast'
+import { send } from "./broadcast"
 
 let hooks = new Set()
 let __back__first = null
@@ -80,7 +78,7 @@ export function addBack(hook) {
  * setTimeout(() => {
  *  this.plus.removeBack(handle)
  * }, 1000);
- * 
+ *
  * // 通过添加获取hook
  * let handle3 = this.plus.addBack({
  *   index: 9999,
@@ -107,10 +105,10 @@ function acts() {
   if (hooks.size > 0) {
     let _hooks = [...hooks]
     console.log(utils.getType(_hooks))
-    _hooks.sort(function (a, b) {
+    _hooks.sort(function(a, b) {
       return a.index - b.index
     })
-    ret = _hooks.every(function (hook, index) {
+    ret = _hooks.every(function(hook, index) {
       // hook.act() 只要为false就中断后续钩子
       return hook.act() !== false
     })
@@ -136,7 +134,11 @@ export function back(forceBack = false) {
   if (window.plus) {
     if (wobj.parent()) {
       // 子窗体
-      send('__backbutton', { wid: wobj.id, pid: this.parent.id }, { ids: [this.parent.id] })
+      send(
+        "__backbutton",
+        { wid: wobj.id, pid: this.parent.id },
+        { ids: [this.parent.id] }
+      )
     }
     wobj.canBack(e => {
       if (e.canBack) {
@@ -145,7 +147,7 @@ export function back(forceBack = false) {
         if (win.isHome(wobj)) {
           if (!__back__first) {
             __back__first = new Date().getTime()
-            ui.toast('再按一次退出应用')
+            ui.toast("再按一次退出应用")
             setTimeout(() => {
               __back__first = null
             }, endTime)
@@ -160,16 +162,18 @@ export function back(forceBack = false) {
       }
     })
   } else {
-    if (_fisthref !== window.location.href && window.history.length > 1) {
+    if (window.history.length > 1) {
+      // if (_fisthref !== window.location.href && window.history.length > 1) {
       window.history.back()
     } else {
-      if (win.isHome(wobj)) {
-        if (wobj.confirm('是否退出应用？')) {
-          win.close(wobj)
-        }
-      } else {
-        win.close(wobj)
-      }
+      win.close(wobj)
+      // if (win.isHome(wobj)) {
+      //   if (wobj.confirm("是否退出应用？")) {
+      //     win.close(wobj)
+      //   }
+      // } else {
+      //   win.close(wobj)
+      // }
     }
   }
 }

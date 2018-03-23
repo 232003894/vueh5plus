@@ -1,37 +1,28 @@
 {
   "name": "vue-h5-plus",
   "description": "H5Plus Extend for Vue.js",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "author": "cwb",
   "license": "MIT",
   "private": false,
   "main": "vue-h5plus.common.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --host 192.168.2.124 --port 8081 --open --hot",
+    "dev":
+      "cross-env NODE_ENV=development webpack-dev-server --host 192.168.2.124 --port 8081 --open --hot",
     "build": "node build/build.js"
   },
-  "files": [
-    "vue-h5plus.common.js"
-  ],
+  "files": ["vue-h5plus.common.js"],
   "repository": {
     "type": "git",
     "url": "https://github.com/232003894/vueh5plus"
   },
-  "keywords": [
-    "H5Plus",
-    "h5+",
-    "vue"
-  ],
+  "keywords": ["H5Plus", "h5+", "vue"],
   "dependencies": {
     "accounting": "^0.4.1",
     "qs": "^6.5.1",
     "vue": "^2.4.4"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

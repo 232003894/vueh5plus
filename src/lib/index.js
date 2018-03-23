@@ -1,6 +1,6 @@
-import 'babel-polyfill'
-import * as _plus from './plus/index.js'
-import qs from 'qs'
+import "babel-polyfill"
+import * as _plus from "./plus/index.js"
+import qs from "qs"
 // lazy绑定
 var vue
 // listen的集合
@@ -8,19 +8,19 @@ const _listens = new WeakMap()
 
 // h5+插件扩展
 const plusExtend = {
-  created: function () {
+  created: function() {
     if (!vue) {
-      console.warn('[h5 plus] not installed!')
+      console.warn("[h5 plus] not installed!")
     }
   },
-  mounted: function () {
+  mounted: function() {
     this.init()
   },
   methods: {
     /**
      * 初始化
      */
-    init: function () {
+    init: function() {
       var self = this
       /**
        * 扩展的组件选项
@@ -55,16 +55,20 @@ const plusExtend = {
               _listens.set(_lf, true)
               if (_plus.os.plus) {
                 // 设备
-                document.addEventListener(_l, function (e) {
+                document.addEventListener(_l, function(e) {
                   _lf.call(self, e)
                 })
               } else {
                 // 非设备:基本上是给调试用的
-                window.addEventListener('message', function (e) {
-                  if (e.data && e.data.name === _l) {
-                    _lf.call(self, { "detail": e.data.data || {} })
-                  }
-                }, false)
+                window.addEventListener(
+                  "message",
+                  function(e) {
+                    if (e.data && e.data.name === _l) {
+                      _lf.call(self, { detail: e.data.data || {} })
+                    }
+                  },
+                  false
+                )
               }
             }
           }
@@ -84,13 +88,17 @@ function onload(callback, vm = null) {
       callback()
     }
   } else {
-    document.addEventListener('DOMContentLoaded', function () {
-      if (vm) {
-        callback.call(vm)
-      } else {
-        callback()
-      }
-    }, false)
+    document.addEventListener(
+      "DOMContentLoaded",
+      function() {
+        if (vm) {
+          callback.call(vm)
+        } else {
+          callback()
+        }
+      },
+      false
+    )
   }
   return this
 }
@@ -105,18 +113,21 @@ function onplusload(callback, vm = null) {
       } else {
         callback()
       }
-
     }, 16.7)
   } else {
     // 修复：手机app中会调用2次的bug，window.plus改为os.plus
     if (_plus.os.plus) {
-      document.addEventListener('plusready', function () {
-        if (vm) {
-          callback.call(vm)
-        } else {
-          callback()
-        }
-      }, false)
+      document.addEventListener(
+        "plusready",
+        function() {
+          if (vm) {
+            callback.call(vm)
+          } else {
+            callback()
+          }
+        },
+        false
+      )
     } else {
       if (vm) {
         onload(callback, vm)
@@ -127,41 +138,50 @@ function onplusload(callback, vm = null) {
   }
 }
 
-
-
 /**
  * 非设备环境模拟H5+
  * 1.模拟window的id和参数
  * 2.构建全部窗体列表为模拟通知使用
  */
-(function () {
-  onplusload(function () {
-    window.plus && window.plus.key.addEventListener('backbutton', () => { _plus.back(false) }, false)
+;(function() {
+  onplusload(() => {
+    window.plus &&
+      window.plus.key.addEventListener(
+        "backbutton",
+        () => {
+          _plus.back(false)
+        },
+        false
+      )
     if (_plus.os.plus) {
       // 设备
-      document.addEventListener('__backbutton', function (e) {
+      document.addEventListener("__backbutton", function(e) {
         _plus.back(false)
       })
     } else {
       // 非设备:基本上是给调试用的
-      window.addEventListener('message', function (e) {
-        if (e.data && e.data.name === '__backbutton') {
-          _plus.back(false)
-        }
-      }, false)
+      window.addEventListener(
+        "message",
+        function(e) {
+          if (e.data && e.data.name === "__backbutton") {
+            _plus.back(false)
+          }
+        },
+        false
+      )
     }
-
   })
+
   if (!_plus.os.plus) {
-    window.id = 'index'
-    let tmp = window.location.href.split('?')
+    window.id = "index"
+    let tmp = window.location.href.split("?")
     let extras = null
     if (tmp.length > 1) {
-      extras = qs.parse(window.location.href.replace(tmp[0] + "?", ''))
+      extras = qs.parse(window.location.href.replace(tmp[0] + "?", ""))
       for (var p in extras) {
         try {
           window[p] = extras[p]
-        } catch (error) { }
+        } catch (error) {}
       }
     }
     if (!window.mainWin) {
@@ -179,9 +199,11 @@ function onplusload(callback, vm = null) {
     window.mainWin.__all_wins.add(window)
     let _isHome = _plus.isHome()
     if (_isHome) {
-      console.warn('[web调试模式(非设备)] 当前是首页，手动刷新本页会影响已有窗体的通知失效。')
+      console.warn(
+        "[web调试模式(非设备)] 当前是首页，手动刷新本页会影响已有窗体的通知失效。"
+      )
     }
-    window.onbeforeunload = function () {
+    window.onbeforeunload = function() {
       if (!_isHome) {
         window.mainWin.__all_wins.delete(window)
       }
@@ -214,7 +236,7 @@ const h5plus = {
   }
 }
 
-if (typeof window !== 'undefined' && window.Vue) {
+if (typeof window !== "undefined" && window.Vue) {
   window.Vue.use(h5plus)
 }
 

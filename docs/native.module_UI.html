@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Vue H5+ userAgent</title>
+	<title>Vue H5+ UI</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,7 +65,7 @@
 		<div id="main">
 			﻿
 
-	<h1 class="page-title">userAgent</h1>
+	<h1 class="page-title">UI</h1>
 <section>
 
 <header>
@@ -77,7 +77,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>浏览器用于 HTTP 请求的用户代理头的值</p></div>
+            <div class="description"><p>统原生界面</p></div>
         
 
         
@@ -135,22 +135,173 @@
     
 
     
-        <!-- <h3 class="subsection-title">Members</h3> -->
+
+    
+        <!-- <h3 class="subsection-title">方法</h3> -->
 
         <dl>
-            
+            ﻿
 <hr>
-<dt class="name" id=".os">
-    <h4 id=".os">os<span class="type-signature"></span></h4>
-
+<dt>
+    <h4 class="name" id=".closeWaiting">closeWaiting()</h4>
+    
     
 </dt>
 <dd>
+
     
     <div class="description">
-        <p>浏览器属性</p>
+        <p>关闭系统等待对话框</p>
     </div>
     
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">this.plus.closeWaiting();</pre>
+
+
+    
+</dd>
+
+        
+            ﻿
+<hr>
+<dt>
+    <h4 class="name" id=".showWaiting">showWaiting(title)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>显示系统等待对话框</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last"><p>标题</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
     
 
@@ -158,11 +309,90 @@
 <dl class="details">
     
 
-    <h5 class="subsection-title">Properties:</h5>
+	
 
-    <dl>
+	
 
-<table class="props table table-striped">
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5> 
+        <!-- <h5>示例</h5> -->
+        
+    <pre class="sunlight-highlight-javascript">this.plus.showWaiting(&quot;载入中&quot;);</pre>
+
+
+    
+</dd>
+
+        
+            ﻿
+<hr>
+<dt>
+    <h4 class="name" id=".toast">toast(msg, opts)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>显示自动消失的提示消息</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
     <thead>
     <tr>
         
@@ -184,7 +414,7 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>msg</code></td>
             
 
             <td class="type">
@@ -201,14 +431,61 @@
 
             
 
-            <td class="description last"><p>运行环境名称</p></td>
+            <td class="description last"><p>提示消息上显示的文字内容</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>version</code></td>
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>提示消息参数，只有<b>lineLength属性</b>是扩展的，<br>下列只是部分常用的，其他完整的可以参考<a href="http://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.ToastOptions">HTML5+ API</a>。</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lineLength</code></td>
             
 
             <td class="type">
@@ -222,23 +499,39 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>版本</p></td>
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>提示信息（msg）的手动换行长度，单位是字节，0表示不处理。</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>wechat</code></td>
+                <td class="name"><code>verticalAlign</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Boolean</span>
+<span class="param-type">String</span>
 
 
 
@@ -246,23 +539,39 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>是否微信</p></td>
+            
+                <td class="default">
+                
+                    'bottom'
+                
+                </td>
+            
+
+            <td class="description last"><p>屏幕中的垂直位置：可选值为&quot;top&quot;、&quot;center&quot;、&quot;bottom&quot;，分别为垂直居顶、居中、居底。</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>android</code></td>
+                <td class="name"><code>icon</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Boolean</span>
+<span class="param-type">String</span>
 
 
 
@@ -270,23 +579,39 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;可选><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>是否android</p></td>
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last"><p>显示的图标：png格式，并且必须是本地资源地址；<br>默认图标与文字分两行显示，上面显示图标，下面显示文字。</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>isBadAndroid</code></td>
+                <td class="name"><code>duration</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Boolean</span>
+<span class="param-type">String</span>
 
 
 
@@ -294,137 +619,43 @@
             </td>
 
             
-
-            
-
-            <td class="description last"><p>是否android非Chrome环境</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ios</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">Boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>是否ios系统</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ipad</code></td>
-            
-
-            <td class="type">
-            
+                    &lt;可选><br>
                 
-<span class="param-type">Boolean</span>
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>是否ipad</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>iphone</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type">Boolean</span>
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>是否iphone</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>plus</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type">Boolean</span>
-
-
-
-            
-            </td>
-
+                </td>
             
 
             
-
-            <td class="description last"><p>是否H5+</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>stream</code></td>
-            
-
-            <td class="type">
-            
+                <td class="default">
                 
-<span class="param-type">Boolean</span>
-
-
-
-            
-            </td>
-
+                    'short'
+                
+                </td>
             
 
-            
-
-            <td class="description last"><p>是否stream</p></td>
+            <td class="description last"><p>显示的时间：可选值为&quot;long&quot;、&quot;short&quot;，&quot;long&quot;约为3.5s，&quot;short&quot;约为2s。</p></td>
         </tr>
 
     
     </tbody>
 </table>
-</dl>
 
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
     
 
 	
@@ -461,14 +692,60 @@
 
 	
 </dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Examples</h5> 
+        <!-- <h5>示例</h5> -->
+        
+        <p class="code-caption">垂直居顶自动换行的消息.</p>
+    
+    <pre class="sunlight-highlight-javascript">this.plus.toast(
+ &quot;创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。&quot;,
+ {
+   verticalAlign: &quot;top&quot;,
+   duration: &quot;short&quot;,
+   lineLength: 0
+ }
+);</pre>
+
+        <p class="code-caption">垂直居中13个字节换行的消息.</p>
+    
+    <pre class="sunlight-highlight-javascript">this.plus.toast(
+ &quot;创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。&quot;,
+ {
+   verticalAlign: &quot;center&quot;,
+   duration: &quot;short&quot;,
+   lineLength: 13
+ }
+);</pre>
+
+        <p class="code-caption">带成功图标的消息.</p>
+    
+    <pre class="sunlight-highlight-javascript">// 图标png格式，并且必须是本地资源地址（Hbuilder的App项目路径，不能是远程路径）
+this.plus.toast(&quot;提案成功&quot;, {
+   verticalAlign: &quot;center&quot;,
+   icon: &quot;/ui/ok.png&quot;
+ }
+);</pre>
 
 
     
 </dd>
 
         </dl>
-    
-
     
 
     
