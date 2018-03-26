@@ -626,7 +626,8 @@ export function pullRefresh(style = {}, callback = () => {}) {
     }
   } else {
     if (utils.isFunction(callback)) {
-      callback()
+      let end = () => {}
+      callback(end)
     }
   }
 }
