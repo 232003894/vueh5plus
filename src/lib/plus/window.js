@@ -624,11 +624,6 @@ export function pullRefresh(style = {}, callback = () => {}) {
     } else {
       win.setPullToRefresh(style)
     }
-  } else {
-    if (utils.isFunction(callback)) {
-      let end = () => {}
-      callback(end)
-    }
   }
 }
 /**

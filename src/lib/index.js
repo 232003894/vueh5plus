@@ -14,13 +14,13 @@ const plusExtend = {
     }
   },
   mounted: function() {
-    this.init()
+    this.___$$$init()
   },
   methods: {
     /**
      * 初始化
      */
-    init: function() {
+    ___$$$init: function() {
       var self = this
       /**
        * 扩展的组件选项

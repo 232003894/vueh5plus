@@ -48,7 +48,7 @@ const endTime = 2000
  */
 export function addBack(hook) {
   if (hook) {
-    if (!utils.isNumber(hook)) {
+    if (!utils.isNumber(hook.index)) {
       hook.index = 100
     }
     if (utils.isFunction(hook.act)) {
