@@ -104,7 +104,7 @@ function acts() {
   let ret = true
   if (hooks.size > 0) {
     let _hooks = [...hooks]
-    console.log(utils.getType(_hooks))
+    // console.log(utils.getType(_hooks))
     _hooks.sort(function(a, b) {
       return a.index - b.index
     })

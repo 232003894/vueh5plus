@@ -163,6 +163,7 @@ export function show(w, opts = { loading: true, ani: {} }) {
   if (!opts.ani) {
     opts.ani = {}
   }
+
   if (!utils.isBoolean(opts.loading)) {
     opts.loading = true
   }
@@ -176,6 +177,7 @@ export function show(w, opts = { loading: true, ani: {} }) {
 
     if (!isVisible) {
       // 窗口不可见（从没调用过show或hide了）
+
       if (opts.loading) {
         ui.showWaiting()
         setTimeout(() => {

@@ -1,4 +1,3 @@
-
 /**
  * 类型和验证
  * @module utils.Type
@@ -7,10 +6,20 @@
 
 let class2type = {}
 
-let types = ['Boolean', 'Number', 'String', 'Function', 'Array', 'Date', 'RegExp', 'Object', 'Error']
+let types = [
+  "Boolean",
+  "Number",
+  "String",
+  "Function",
+  "Array",
+  "Date",
+  "RegExp",
+  "Object",
+  "Error"
+]
 
 types.forEach((name, i) => {
-  class2type['[object ' + name + ']'] = name.toLowerCase()
+  class2type["[object " + name + "]"] = name.toLowerCase()
 })
 
 /**
@@ -30,7 +39,9 @@ export function getType(value) {
 
    利用这个方法，再配合call，我们可以取得任何对象的内部属性[[Class]]，然后把类型检测转化为字符串比较，以达到我们的目的。
    */
-  return value == null ? String(value) : class2type[{}.toString.call(value)] || 'object'
+  return value == null
+    ? String(value)
+    : class2type[{}.toString.call(value)] || "object"
 }
 
 /**
@@ -39,7 +50,7 @@ export function getType(value) {
  * @returns {Boolean} 是否为字符串
  */
 export function isString(value) {
-  return getType(value) === 'string'
+  return getType(value) === "string"
 }
 
 /**
@@ -48,7 +59,7 @@ export function isString(value) {
  * @returns {Boolean} 是否为数值
  */
 export function isNumber(value) {
-  return getType(value) === 'number'
+  return getType(value) === "number"
 }
 
 /**
@@ -57,7 +68,7 @@ export function isNumber(value) {
  * @returns {Boolean} 是否为布尔
  */
 export function isBoolean(value) {
-  return getType(value) === 'Boolean'
+  return getType(value) === "boolean"
 }
 
 /**
@@ -66,7 +77,7 @@ export function isBoolean(value) {
  * @returns {Boolean} 是否为正则
  */
 export function isRegExp(value) {
-  return getType(value) === 'regexp'
+  return getType(value) === "regexp"
 }
 
 /**
@@ -75,7 +86,7 @@ export function isRegExp(value) {
  * @returns {Boolean} 是否为一个函数
  */
 export function isFunction(value) {
-  return getType(value) === 'function'
+  return getType(value) === "function"
 }
 
 /**
@@ -84,7 +95,7 @@ export function isFunction(value) {
  * @returns {Boolean} 是否为日期
  */
 export function isDate(value) {
-  return getType(value) === 'date'
+  return getType(value) === "date"
 }
 
 /**
@@ -93,7 +104,7 @@ export function isDate(value) {
  * @returns {Boolean} 是否为数组
  */
 export function isArray(value) {
-  return getType(value) === 'array'
+  return getType(value) === "array"
 }
 
 /**
@@ -111,7 +122,7 @@ export function isWindow(value) {
  * @returns {Boolean} 是否为一个对象
  */
 export function isObject(value) {
-  return getType(value) === 'object'
+  return getType(value) === "object"
 }
 
 /**
@@ -120,29 +131,34 @@ export function isObject(value) {
  * @returns {Boolean} 是否为一个纯净的JS对象
  */
 export function isPlainObject(value) {
-  return isObject(value) && !isWindow(value) && Object.getPrototypeOf(value) === Object.prototype
+  return (
+    isObject(value) &&
+    !isWindow(value) &&
+    Object.getPrototypeOf(value) === Object.prototype
+  )
 }
 
 /**
  * 验证URL
- * @param {String} str - 待验证的字符串 
+ * @param {String} str - 待验证的字符串
  * @returns {Boolean} 是否为URL格式
  */
 export function isURL(str) {
-  // 验证url  
+  // 验证url
   // var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
-  var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
-    + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" // ftp的user@  
-    + "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184  
-    + "|" // 允许IP和DOMAIN（域名）  
-    + "([0-9a-z_!~*'()-]+\.)*" // 域名- www.  
-    + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名  
-    + "[a-z]{2,6})" // first level domain- .com or .museum  
-    + "(:[0-9]{1,4})?" // 端口- :80  
-    + "((/?)|" // a slash isn't required if there is no file name  
-    + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
-  var re = new RegExp(strRegex);
-  return re.test(str);
+  var strRegex =
+    "^((https|http|ftp|rtsp|mms)?://)" +
+    "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" + // ftp的user@
+    "(([0-9]{1,3}.){3}[0-9]{1,3}" + // IP形式的URL- 199.194.52.184
+    "|" + // 允许IP和DOMAIN（域名）
+    "([0-9a-z_!~*'()-]+.)*" + // 域名- www.
+    "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]." + // 二级域名
+    "[a-z]{2,6})" + // first level domain- .com or .museum
+    "(:[0-9]{1,4})?" + // 端口- :80
+    "((/?)|" + // a slash isn't required if there is no file name
+    "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$"
+  var re = new RegExp(strRegex)
+  return re.test(str)
 }
 //  #endregion
 
@@ -167,7 +183,7 @@ export function isURL(str) {
  */
 export function strBreak(txt = "", lineLength = 10, lineBreak = "\r\n") {
   if (!txt) {
-    return ''
+    return ""
   }
   lineLength = toFixed(lineLength)
   if (lineLength <= 0) {
@@ -175,20 +191,20 @@ export function strBreak(txt = "", lineLength = 10, lineBreak = "\r\n") {
   }
   // http://www.makaidong.com/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E7%9F%A5%E8%AF%86%E5%BA%93/18649.shtml
   if (txt.replace(/[^\x00-\xff]/g, "xx").length <= lineLength) {
-    return txt;
+    return txt
   }
-  var str = "";
-  var l = 0;
-  var schar;
+  var str = ""
+  var l = 0
+  var schar
   for (var i = 0; (schar = txt.charAt(i)); i++) {
-    str += schar;
-    l += schar.match(/[^\x00-\xff]/) != null ? 2 : 1;
+    str += schar
+    l += schar.match(/[^\x00-\xff]/) != null ? 2 : 1
     if (l >= lineLength) {
-      str += lineBreak;
-      l = 0;
+      str += lineBreak
+      l = 0
     }
   }
-  return str;
+  return str
 }
 
 /**
@@ -197,10 +213,10 @@ export function strBreak(txt = "", lineLength = 10, lineBreak = "\r\n") {
  * @returns {String} 去html标签的字符串
  */
 export function delHtmlTag(html) {
-  var doc = ''
-  if (getType(html) === 'string') {
+  var doc = ""
+  if (getType(html) === "string") {
     // doc = html.replace(/^[^\/]+\/\*!?\s?/, '').replace(/\*\/[^\/]+$/, '').trim().replace(/>\s*</g, '><')
-    doc = html.replace(/<\/?.+?>/g, '')
+    doc = html.replace(/<\/?.+?>/g, "")
   }
   return doc
 }
@@ -213,60 +229,60 @@ export function delHtmlTag(html) {
  * @returns {String} 反色的颜色值 #000000 格式
  */
 export function reversalColor(colorStr) {
-  var sixNumReg = /^#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})*$/gi;
-  var threeNumReg = /^#([a-fA-F0-9]{1})([a-fA-F0-9]{1})([a-fA-F0-9]{1})$/gi;
-  var rgbReg = /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/gi;
+  var sixNumReg = /^#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})*$/gi
+  var threeNumReg = /^#([a-fA-F0-9]{1})([a-fA-F0-9]{1})([a-fA-F0-9]{1})$/gi
+  var rgbReg = /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/gi
   var c1 = 0,
     c2 = 0,
-    c3 = 0;
-  var parseHexToInt = function (hex) {
-    return parseInt(hex, 16);
-  };
-  var parseIntToHex = function (int) {
-    return int.toString(16);
-  };
+    c3 = 0
+  var parseHexToInt = function(hex) {
+    return parseInt(hex, 16)
+  }
+  var parseIntToHex = function(int) {
+    return int.toString(16)
+  }
   if (sixNumReg.test(colorStr)) {
-    sixNumReg.exec(colorStr);
-    c1 = parseHexToInt(RegExp.$1);
-    c2 = parseHexToInt(RegExp.$2);
-    c3 = parseHexToInt(RegExp.$3);
+    sixNumReg.exec(colorStr)
+    c1 = parseHexToInt(RegExp.$1)
+    c2 = parseHexToInt(RegExp.$2)
+    c3 = parseHexToInt(RegExp.$3)
   } else if (threeNumReg.test(colorStr)) {
-    threeNumReg.exec(colorStr);
-    c1 = parseHexToInt(RegExp.$1 + RegExp.$1);
-    c2 = parseHexToInt(RegExp.$2 + RegExp.$2);
-    c3 = parseHexToInt(RegExp.$3 + RegExp.$3);
+    threeNumReg.exec(colorStr)
+    c1 = parseHexToInt(RegExp.$1 + RegExp.$1)
+    c2 = parseHexToInt(RegExp.$2 + RegExp.$2)
+    c3 = parseHexToInt(RegExp.$3 + RegExp.$3)
   } else if (rgbReg.test(colorStr)) {
     //rgb color 直接就是十进制，不用转换
-    rgbReg.exec(colorStr);
-    c1 = RegExp.$1;
-    c2 = RegExp.$2;
-    c3 = RegExp.$3;
+    rgbReg.exec(colorStr)
+    c1 = RegExp.$1
+    c2 = RegExp.$2
+    c3 = RegExp.$3
   } else {
-    throw new Error(
-      "Error color string format. eg.[rgb(0,0,0),#000000,#f00]"
-    );
+    throw new Error("Error color string format. eg.[rgb(0,0,0),#000000,#f00]")
   }
-  c1 = parseIntToHex(255 - c1);
-  c2 = parseIntToHex(255 - c2);
-  c3 = parseIntToHex(255 - c3);
+  c1 = parseIntToHex(255 - c1)
+  c2 = parseIntToHex(255 - c2)
+  c3 = parseIntToHex(255 - c3)
   return (
     "#" +
     (c1 < 10 ? "0" + c1 : c1) +
     (c2 < 10 ? "0" + c2 : c2) +
     (c3 < 10 ? "0" + c3 : c3)
-  );
+  )
 }
 
 /**
  * 获取随机颜色
- * @param {Boolean} [useRgb=false] 是否使用rgb格式 
+ * @param {Boolean} [useRgb=false] 是否使用rgb格式
  * @returns {String} 颜色值 #000000 或 rgb(0,0,0)
  */
 export function randomColor(useRgb = false) {
-  let _color = ''
+  let _color = ""
   if (!useRgb) {
     // http://blog.csdn.net/inite/article/details/52554142
-    _color = '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
+    _color =
+      "#" +
+      ("00000" + ((Math.random() * 0x1000000) << 0).toString(16)).slice(-6)
   } else {
     _color =
       "rgb(" +
@@ -275,7 +291,7 @@ export function randomColor(useRgb = false) {
       Math.floor(Math.random() * 256) +
       "," +
       Math.floor(Math.random() * 256) +
-      ")";
+      ")"
   }
   return _color
 }
@@ -286,7 +302,9 @@ export function randomColor(useRgb = false) {
  * @returns {Object} style对象
  */
 export function getStyle(domObj) {
-  return domObj.currentStyle != null ? domObj.currentStyle : window.getComputedStyle(domObj, false)
+  return domObj.currentStyle != null
+    ? domObj.currentStyle
+    : window.getComputedStyle(domObj, false)
 }
 //  #endregion
 
@@ -304,23 +322,23 @@ export function getStyle(domObj) {
  * // 多个对象拷贝
  * // {"title":"sss","obj":{"sub":"abc","test":"sub123"}}
  * this.plus.mix({title:'dd',obj:{sub:'abc',subtitle:'sub'}},{title:'sss',obj:{sub:'abc',test:'sub123'}})
- * 
+ *
  * // 多个对象深度拷贝
  * // {"title":"sss","obj":{"sub":"abc","subtitle":"sub","test":"sub123"}}
  * this.plus.mix(true,{title:'dd',id:123,obj:{sub:'abc',subtitle:'sub'}},{title:'sss',id1:123,obj:{sub:'abc',test:'sub123'}})
- * 
+ *
  * // 多个数组拷贝
  * // [4,{"sub":"abc","test":"sub123"},3,5]
  * this.plus.mix([1,{sub:'abc',subtitle:'sub'},2,5],[4,{sub:'abc',test:'sub123'},3])
- * 
+ *
  * // 多个数组深度拷贝
  * // [4,{"sub":"abc","subtitle":"sub","test":"sub123"},3,5]
  * this.plus.mix(true,[1,{sub:'abc',subtitle:'sub'},2,5],[4,{sub:'abc',test:'sub123'},3])
- * 
+ *
  * // 对象拷贝到数组中
  * // [1, 1, 2, title: "ddd", id: 123]
  * this.plus.mix([1,1,2],{title:'dd',id:123})
- * 
+ *
  * // 数组拷贝到对象中
  * // Object {0: 1, 1: 1, 2: 2, title: "dd", id: 123}
  * this.plus.mix({title:'dd',id:123},[1,1,2])
@@ -337,14 +355,14 @@ export function mix() {
   var length = arguments.length
   var deep = false
   // 如果第一个参数为布尔,判定是否深拷贝
-  if (typeof target === 'Boolean') {
+  if (typeof target === "Boolean") {
     deep = target
     target = arguments[1] || {}
     i++
   }
 
   // 确保接受方为一个复杂的数据类型
-  if (typeof target !== 'object' && !isFunction(target)) {
+  if (typeof target !== "object" && !isFunction(target)) {
     target = {}
   }
 
@@ -370,7 +388,11 @@ export function mix() {
         if (target === copy) {
           continue
         }
-        if (deep && copy && (isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))) {
+        if (
+          deep &&
+          copy &&
+          (isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))
+        ) {
           if (copyIsArray) {
             copyIsArray = false
             clone = src && Array.isArray(src) ? src : []
@@ -467,11 +489,11 @@ export function mix() {
 //  #endregion
 
 // #region number
-import accounting from 'accounting'
+import accounting from "accounting"
 
 /**
  * 把 Number 四舍五入为指定小数位数的数字
- * @param {Number|String} value 
+ * @param {Number|String} value
  * @param {Number} [precision=0] - 保留位数
  * @param {Boolean} [toStr=false] - 是否输出为字符串格式，false则输出数值
  * @returns {Number|String} 四舍五入后的数字或字符串
