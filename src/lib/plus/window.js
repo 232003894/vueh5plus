@@ -3,10 +3,10 @@
  * @module window
  */
 
-import { os } from "./os.js"
-import * as utils from "../common/utils"
-import * as ui from "./nativeUI.js"
-import qs from "qs"
+import { os } from './os.js'
+import * as utils from '../common/utils'
+import * as ui from './nativeUI.js'
+import qs from 'qs'
 
 // #region 辅助方法
 
@@ -16,7 +16,7 @@ import qs from "qs"
  * @param {Object} ext 扩展参数
  */
 function getId(url, ext) {
-  let tmp = url.split("?")
+  let tmp = url.split('?')
   let opt = {}
   if (tmp.length > 1) {
     opt = utils.mix(true, opt, qs.parse(tmp[tmp.length - 1]), ext)
@@ -25,7 +25,7 @@ function getId(url, ext) {
   }
   let _qs = qs.stringify(opt)
   if (_qs) {
-    _qs = "?" + _qs
+    _qs = '?' + _qs
   }
   return tmp[0] + _qs
 }
@@ -36,7 +36,7 @@ function getId(url, ext) {
  * @param {String} id 页面id
  */
 function getUrl(url, ext, id) {
-  let tmp = url.split("?")
+  let tmp = url.split('?')
   let opt = {}
   if (tmp.length > 1) {
     opt = utils.mix(true, opt, qs.parse(tmp[tmp.length - 1]), ext)
@@ -49,7 +49,7 @@ function getUrl(url, ext, id) {
   opt = utils.mix(true, opt, { id: id })
   let _qs = qs.stringify(opt)
   if (_qs) {
-    _qs = "?" + _qs
+    _qs = '?' + _qs
   }
   return { url: tmp[0] + _qs, id: id }
 }
@@ -61,19 +61,19 @@ function getUrl(url, ext, id) {
 // 默认打开窗口样式配置
 const defaultWin = {
   scalable: false,
-  bounce: "",
-  plusrequire: "ahead",
-  softinputMode: "adjustPan"
+  bounce: '',
+  plusrequire: 'ahead',
+  softinputMode: 'adjustPan'
 }
 // 默认窗口显示配置
 const defaultShow = {
   duration: os.ios ? 300 : 200,
-  aniShow: "slide-in-right"
+  aniShow: 'slide-in-right'
 }
 // 默认窗口隐藏配置
 const defaultHide = {
   duration: os.ios ? 450 : 300,
-  aniHide: "slide-out-right"
+  aniHide: 'slide-out-right'
 }
 // #endregion
 
@@ -104,7 +104,7 @@ export function errorPage(url) {
  * @example
  * this.plus.create('login.html')
  */
-export function create(url = "", id = "", opts = { ext: {}, style: {} }) {
+export function create(url = '', id = '', opts = { ext: {}, style: {} }) {
   let webview = null
   if (!url) {
     return webview
@@ -142,7 +142,7 @@ export function create(url = "", id = "", opts = { ext: {}, style: {} }) {
  * 显示窗体
  * @param {String|window|WebviewObject} w - 窗体对象或窗体id
  * @param {Object} [opts] - 显示参数
- * @param {Boolean} [opts.loading=true] - 是否显示loading等待效果
+ * @param {Boolean} [opts.loading=false] - 是否显示loading等待效果
  * @param {Object} [opts.ani] - 显示窗口的动画
  * @param {String} [opts.ani.aniShow='slide-in-right'] - 显示窗口的动画效果
  * @param {Number} [opts.ani.duration=300] - 显示窗口动画的持续时间
@@ -150,22 +150,22 @@ export function create(url = "", id = "", opts = { ext: {}, style: {} }) {
  * // 根据id显示
  * this.plus.show('login')
  */
-export function show(w, opts = { loading: true, ani: {} }) {
+export function show(w, opts = { loading: false, ani: {} }) {
   // export function show(w, opts = {}, showedCB = function () { }) {
   w = getWin(w)
   if (!w) {
-    console.error("[show方法] 类型{String|window|WebviewObject}参数w不能为空!")
+    console.error('[show方法] 类型{String|window|WebviewObject}参数w不能为空!')
     return
   }
   if (!opts) {
-    opts = { loading: true, ani: {} }
+    opts = { loading: false, ani: {} }
   }
   if (!opts.ani) {
     opts.ani = {}
   }
 
   if (!utils.isBoolean(opts.loading)) {
-    opts.loading = true
+    opts.loading = false
   }
   if (window.plus) {
     let isVisible = w.isVisible()
@@ -205,9 +205,7 @@ export function show(w, opts = { loading: true, ani: {} }) {
         // 窗口可见但不在最顶层
         if (_topIsHome) {
           // 最顶层的是home页
-          hide(w, {
-            aniHide: "none"
-          })
+          hide(w, { aniHide: 'none' })
           if (opts.loading) {
             ui.showWaiting()
             setTimeout(() => {
@@ -244,7 +242,7 @@ export function show(w, opts = { loading: true, ani: {} }) {
       }
     }
   } else {
-    console.log("[" + os.name + "]不支持show方法!")
+    console.log('[' + os.name + ']不支持show方法!')
     w.focus()
   }
 }
@@ -262,7 +260,7 @@ export function show(w, opts = { loading: true, ani: {} }) {
 export function hide(w, hideOpts = {}) {
   w = getWin(w)
   if (!w) {
-    console.error("[hide方法] 类型{String|window|WebviewObject}参数w不能为空!")
+    console.error('[hide方法] 类型{String|window|WebviewObject}参数w不能为空!')
     return
   }
   if (window.plus) {
@@ -276,12 +274,12 @@ export function hide(w, hideOpts = {}) {
     }
     let isTop = plus.webview.getTopWebview().id === w.id
     if (!isTop) {
-      w.hide("none", _Opt.duration)
+      w.hide('none', _Opt.duration)
     } else {
-      w.hide(_Opt.aniHide || "auto", _Opt.duration)
+      w.hide(_Opt.aniHide || 'auto', _Opt.duration)
     }
   } else {
-    console.log("[" + os.name + "]不支持hide方法!")
+    console.log('[' + os.name + ']不支持hide方法!')
     return
   }
 }
@@ -299,7 +297,7 @@ export function hide(w, hideOpts = {}) {
 export function close(w, closeOpts = {}) {
   w = getWin(w)
   if (!w) {
-    console.error("[close方法] 类型{String|window|WebviewObject}参数w不能为空!")
+    console.error('[close方法] 类型{String|window|WebviewObject}参数w不能为空!')
     return
   }
   if (window.plus) {
@@ -309,7 +307,7 @@ export function close(w, closeOpts = {}) {
           close(c)
         }
       }
-    w.addEventListener("onclose", fn)
+    w.addEventListener('onclose', fn)
     let _Opt = { duration: defaultHide.duration }
     if (closeOpts.duration || closeOpts.aniHide) {
       _Opt = utils.mix({}, defaultHide, closeOpts)
@@ -317,9 +315,9 @@ export function close(w, closeOpts = {}) {
 
     let isTop = plus.webview.getTopWebview().id === w.id
     if (!isTop) {
-      w.close("none", _Opt.duration)
+      w.close('none', _Opt.duration)
     } else {
-      w.close(_Opt.aniHide || "auto", _Opt.duration)
+      w.close(_Opt.aniHide || 'auto', _Opt.duration)
     }
   } else {
     w.close()
@@ -331,7 +329,7 @@ export function close(w, closeOpts = {}) {
  * @param {String} url - 新窗口加载的HTML页面地址
  * @param {String} [id] - 新窗口的标识
  * @param {Object} [opts] - 参数
- * @param {Boolean} [opts.loading=true] - 是否显示loading等待效果
+ * @param {Boolean} [opts.loading=false] - 是否显示loading等待效果
  * @param {Object} [opts.ani] - 显示窗口的动画
  * @param {String} [opts.ani.aniShow='slide-in-right'] - 显示窗口的动画效果
  * @param {Number} [opts.ani.duration=300] - 显示窗口动画的持续时间
@@ -346,9 +344,9 @@ export function close(w, closeOpts = {}) {
  * });
  */
 export function open(
-  url = "",
-  id = "",
-  opts = { loading: true, ext: {}, ani: {}, style: {} }
+  url = '',
+  id = '',
+  opts = { loading: false, ext: {}, ani: {}, style: {} }
 ) {
   if (!url) {
     return null
@@ -376,7 +374,7 @@ export function open(
       return item.id === id
     })
     if (!view) {
-      view = window.open(url, "_blank")
+      view = window.open(url, '_blank')
     } else {
       show(view)
     }
@@ -496,7 +494,7 @@ export function isTop(w) {
  * @param {String} url - 新窗口加载的HTML页面地址
  * @param {String} [id] - 新窗口的标识
  * @param {Object} [opts] - 参数
- * @param {Boolean} [opts.loading=true] - 是否显示loading等待效果
+ * @param {Boolean} [opts.loading=false] - 是否显示loading等待效果
  * @param {Object} [opts.ani] - 显示窗口的动画
  * @param {String} [opts.ani.aniShow='slide-in-right'] - 显示窗口的动画效果
  * @param {Number} [opts.ani.duration=300] - 显示窗口动画的持续时间
@@ -541,29 +539,29 @@ export function isTop(w) {
  * });
  */
 export function menu(
-  url = "",
-  id = "",
-  opts = { loading: true, ext: {}, ani: {}, style: {} }
+  url = '',
+  id = '',
+  opts = { loading: false, ext: {}, ani: {}, style: {} }
 ) {
   if (window.plus) {
     let w = getWin()
     let side = open(url, id, opts)
     side.addEventListener(
-      "close",
+      'close',
       function() {
-        w.setStyle({ mask: "none" })
+        w.setStyle({ mask: 'none' })
         side = null
       },
       false
     )
     side.addEventListener(
-      "hide",
+      'hide',
       function() {
-        w.setStyle({ mask: "none" })
+        w.setStyle({ mask: 'none' })
       },
       false
     )
-    w.setStyle({ mask: "rgba(0,0,0,0.5)" })
+    w.setStyle({ mask: 'rgba(0,0,0,0.5)' })
     return side
   } else {
     return null
